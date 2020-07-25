@@ -1,0 +1,71 @@
+From dcc345a3b69fc44b59fa04b1411b5abe0a4e4810 Mon Sep 17 00:00:00 2001
+From: Colin Watson <cjwatson@debian.org>
+Date: Sun, 26 Jan 2014 21:00:42 +0000
+Subject: Check for libtinfo separately from libcurses
+
+Committed upstream (cvsps patchset 125).
+
+Forwarded: yes
+Last-Update: 2011-10-19
+
+Patch-Name: libtinfo.patch
+---
+ Configure | 38 ++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 38 insertions(+)
+
+diff --git a/Configure b/Configure
+index 917673a..99d494b 100755
+--- a/Configure
++++ b/Configure
+@@ -4881,6 +4881,25 @@ case "$xxx" in
+ 	;;
+ esac
+ case "$xxx" in
++x)
++	xxx=`./loc libtinfo$_a x $libpth`
++	case "$xxx" in
++	/usr/lib*|/lib*)
++		termlib='-ltinfo'
++		d_havetlib="$define"
++		echo "Terminfo library found." >&4
++		;;
++	/*)
++		termlib="$xxx"
++		d_havetlib="$define"
++		echo "Terminfo library found." >&4
++		;;
++	*)
++		xxx=x
++	esac
++	;;
++esac
++case "$xxx" in
+ x)
+ 	xxx=`./loc libtermlib$_a x $libpth`
+ 	case "$xxx" in
+@@ -4938,6 +4957,25 @@ x)
+ 	;;
+ esac
+ case "$xxx" in
++x)
++	xxx=`./loc libtinfo.$so'*' x $libpth`
++	case "$xxx" in
++	/usr/lib*|/lib*)
++		termlib='-ltinfo'
++		d_havetlib="$define"
++		echo "Terminfo library found." >&4
++		;;
++	/*)
++		termlib="$xxx"
++		d_havetlib="$define"
++		echo "Terminfo library found." >&4
++		;;
++	*)
++		xxx=x
++	esac
++	;;
++esac
++case "$xxx" in
+ x)
+ 	xxx=`./loc libtermlib.$so'*' x $libpth`
+ 	case "$xxx" in

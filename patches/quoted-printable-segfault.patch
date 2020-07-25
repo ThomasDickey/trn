@@ -1,0 +1,66 @@
+From d8b05b121caa9ea300d9ca2e080849b7819d45f4 Mon Sep 17 00:00:00 2001
+From: Colin Watson <cjwatson@debian.org>
+Date: Sun, 26 Jan 2014 21:00:38 +0000
+Subject: Don't segfault on poorly-encoded quoted-printable header lines
+
+Forwarded: no
+Last-Update: 2010-03-08
+
+Patch-Name: quoted-printable-segfault.patch
+---
+ cache.c | 42 ++++++++++++++++++++++++++++++++----------
+ 1 file changed, 32 insertions(+), 10 deletions(-)
+
+diff --git a/cache.c b/cache.c
+index 0d6001d..fe5d36b 100644
+--- a/cache.c
++++ b/cache.c
+@@ -532,16 +532,38 @@ int size;
+ 		} while (e && e[1] != '=');
+ 		if (e) {
+ 		    int len = e - f + 2;
+-		    i -= len-1;
+-		    size -= len;
+-		    q += 3;
+-		    f = e+2;
+-		    *e = '\0';
+-		    if (ch == 'q' || ch == 'Q')
+-			len = qp_decodestring(t, q, 1);
+-		    else
+-			len = b64_decodestring(t, q);
+-		    *e = '?';
++		    if (i < len - 1) {
++			/* Cope with encoded strings that aren't properly
++			 * terminated.
++			 */
++			char preserve;
++			f += size;
++			e = f;
++			size -= i;
++			i = 0;
++			q += 3;
++			preserve = *e;
++			if (preserve)
++			    *e = '\0';
++			if (ch == 'q' || ch == 'Q')
++			    len = qp_decodestring(t, q, 1);
++			else
++			    len = b64_decodestring(t, q);
++			if (preserve)
++			    *e = preserve;
++		    } else {
++			/* Normal case with proper termination. */
++			i -= len-1;
++			size -= len;
++			q += 3;
++			f = e+2;
++			*e = '\0';
++			if (ch == 'q' || ch == 'Q')
++			    len = qp_decodestring(t, q, 1);
++			else
++			    len = b64_decodestring(t, q);
++			*e = '?';
++		    }
+ 		    size += len;
+ 		    for ( ; len--; t++) {
+ 			if (AT_GREY_SPACE(t))

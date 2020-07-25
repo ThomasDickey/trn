@@ -1,0 +1,41 @@
+From 2b869d2d5ce6869b815364fc5976bb750a797a28 Mon Sep 17 00:00:00 2001
+From: Nick Leverton <nick@leverton.org>
+Date: Sun, 26 Jan 2014 21:00:44 +0000
+Subject: Segfault whilst applying killfile to article with long header line
+
+This now reminds me of some investigations I did a few years back into a
+similar issue in inn's nntpget.  I found that a small number of clients
+did not trim References headers when they grew past 1024 bytes, or perhaps
+trimmed before appending the new message-id rather than afterwards.
+
+Regardless, the number of articles with References headers > 1024
+was non-zero, but few had them very much longer than that as most of
+these lengthy subthreads involved at least one person with a non-broken
+newsreader.
+
+I therefore think the attached patch should be more than adequate.
+Tested here and solves the problem on all the newsgroups I'm subscribed
+to that have long enough threads to cause this issue.
+
+Bug-Debian: http://bugs.debian.org/682803
+Forwarded: no
+Last-Update: 2012-08-24
+
+Patch-Name: longer-line-buffer.patch
+---
+ common.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/common.h b/common.h
+index cb0f02e..d18a7df 100644
+--- a/common.h
++++ b/common.h
+@@ -55,7 +55,7 @@
+ #include "typedef.h"
+ 
+ #define BITSPERBYTE 8
+-#define LBUFLEN 1024	/* line buffer length */
++#define LBUFLEN 2048	/* line buffer length */
+ 			/* (don't worry, .newsrc lines can exceed this) */
+ #define CBUFLEN 512	/* command buffer length */
+ #define PUSHSIZE 256

@@ -1,0 +1,95 @@
+From 312bd1f8aa837a7c6ea3892c7b385fbe8593bc58 Mon Sep 17 00:00:00 2001
+From: Ian Jackson <ijackson@chiark.greenend.org.uk>
+Date: Sun, 26 Jan 2014 21:00:43 +0000
+Subject: thread tree stability (fixes broken tree navigation)
+
+If two articles have the same date but different subjects and
+different article numbers, and the article numbers compare in the
+opposite order to the subjects, it can be impossible to navigate to
+some places in trn4's thread tree.  This is because the sibling
+ordering of the articles in the tree is not stable, but depends on the
+current article.
+
+So it can be that going "up" from B to its earlier sibling A causes
+(after rethreading etc.) A to be rethreaded after B, so now you would
+go "up" from A to B.  If there are even earlier siblings, they can be
+unreachable (or at least difficult to reach).
+
+It is IMO a bug that the thread tree capriciously rearranges itself
+(at least, when all the articles are actually available etc. - there
+are a lot of good reasons why rearranging the thread tree might be
+necessary but it should be a convergent process and ideally should not
+depend on the current article).
+
+This patch fixes this particular rearrangement by extending the
+partial order (on articles) implied by their dates into a complete
+order by disambiguating on article number.  This ensures that the
+articles, when rethreaded, are linked in in the same order each time.
+
+I have chosen a single-line formatting of the if's in the comparison
+function because IMO that makes the regularity easier to see.
+
+Bug-Debian: http://bugs.debian.org/654771
+Forwarded: no
+Last-Update: 2012-03-27
+
+Patch-Name: thread-tree-stability.patch
+---
+ rt-process.c | 26 +++++++++++++++++++++++---
+ 1 file changed, 23 insertions(+), 3 deletions(-)
+
+diff --git a/rt-process.c b/rt-process.c
+index e4f61e2..98cef89 100644
+--- a/rt-process.c
++++ b/rt-process.c
+@@ -477,6 +477,25 @@ register ARTICLE* child;
+     }
+ }
+ 
++/* Helper function for comparing article dates.  If the dates are
++** equal we compare article numbers.  This means that different
++** articles always compare as having different dates, and makes the
++** threading algorithm stable as to starting point.
++** Returns what Perl calls (left <=> right) ie -1 if left is before
++** right, +1 if after, 0 if same.
++*/
++static int
++compare_article_dates(left, right)
++register ARTICLE* left;
++register ARTICLE* right;
++{
++    if (left->date < right->date) return -1;
++    if (left->date > right->date) return +1;
++    if (left->num < right->num) return -1;
++    if (left->num > right->num) return +1;
++    return 0;
++}
++
+ /* Link an article to its parent article.  If its parent pointer is zero,
+ ** link it to its thread.  Sorts siblings by date.
+ */
+@@ -489,7 +508,7 @@ register ARTICLE* child;
+     if (!(ap = child->parent)) {
+ 	register SUBJECT* sp = child->subj;
+ 	ap = sp->thread;
+-	if (!ap || child->date < ap->date) {
++	if (!ap || compare_article_dates(child, ap) < 0) {
+ 	    do {
+ 		sp->thread = child;
+ 		sp = sp->thread_link;
+@@ -499,12 +518,13 @@ register ARTICLE* child;
+ 	    goto sibling_search;
+     } else {
+ 	ap = ap->child1;
+-	if (!ap || child->date < ap->date) {
++	if (!ap || compare_article_dates(child, ap) < 0) {
+ 	    child->sibling = ap;
+ 	    child->parent->child1 = child;
+ 	} else {
+ 	  sibling_search:
+-	    while (ap->sibling && ap->sibling->date <= child->date)
++	    while (ap->sibling &&
++                   compare_article_dates(ap->sibling, child) <= 0)
+ 		ap = ap->sibling;
+ 	    child->sibling = ap->sibling;
+ 	    ap->sibling = child;

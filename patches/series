@@ -1,0 +1,10 @@
+spoiler-character.patch
+quoted-printable-segfault.patch
+subscription-prompt-overflow.patch
+posix-conformance.patch
+earlier-util-init.patch
+libtinfo.patch
+thread-tree-stability.patch
+longer-line-buffer.patch
+include-sys-ioctl.patch
+extern-declarations.patch

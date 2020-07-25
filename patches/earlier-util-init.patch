@@ -1,0 +1,36 @@
+From 1837f0896d1d0d8642b5912ebfaba38b330ee169 Mon Sep 17 00:00:00 2001
+From: Colin Watson <cjwatson@debian.org>
+Date: Sun, 26 Jan 2014 21:00:41 +0000
+Subject: Move util_init back up the initialisation order
+
+doshell still doesn't work quite right if util_init hasn't been called.
+This is noticeable when trying to use AUTHINFO GENERIC.
+
+Forwarded: no
+Last-Update: 2010-03-08
+
+Patch-Name: earlier-util-init.patch
+---
+ init.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/init.c b/init.c
+index 68ac358..fc33963 100644
+--- a/init.c
++++ b/init.c
+@@ -151,6 +151,7 @@ char* argv[];
+ 
+     datasrc_init();
+     ngdata_init();
++    util_init();
+ 
+     /* now read in the .newsrc file(s) */
+ 
+@@ -180,7 +181,6 @@ char* argv[];
+     trn_init();
+     decode_init();
+     thread_init();
+-    util_init();
+     xmouse_init(argv[0]);
+ 
+     writelast();	/* remember last runtime in .rnlast */

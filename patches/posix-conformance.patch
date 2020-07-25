@@ -1,0 +1,128 @@
+From d3c8580e12065e87292ed5a1ca245397f6ace7ce Mon Sep 17 00:00:00 2001
+From: Colin Watson <cjwatson@debian.org>
+Date: Sun, 26 Jan 2014 21:00:40 +0000
+Subject: Conform to POSIX.1-2001 option changes
+
+Bug-Debian: http://bugs.debian.org/481863
+Forwarded: no
+Last-Update: 2010-03-08
+
+Patch-Name: posix-conformance.patch
+---
+ common.h       | 6 +++---
+ environment.SH | 6 +++---
+ mbox_saver.SH  | 4 ++--
+ norm_saver.SH  | 2 +-
+ trn.1          | 6 +++---
+ 5 files changed, 12 insertions(+), 12 deletions(-)
+
+diff --git a/common.h b/common.h
+index 1add877..cb0f02e 100644
+--- a/common.h
++++ b/common.h
+@@ -651,15 +651,15 @@
+ #endif
+ 
+ #ifndef PIPESAVER		/* % */
+-#   define PIPESAVER "%(%B=^0$?<%A:tail +%Bc %A |) %b"
++#   define PIPESAVER "%(%B=^0$?<%A:tail -c +%B %A |) %b"
+ #endif
+ 
+ #ifndef SHARSAVER
+-#   define SHARSAVER "tail +%Bc %A | /bin/sh"
++#   define SHARSAVER "tail -c +%B %A | /bin/sh"
+ #endif
+ 
+ #ifndef CUSTOMSAVER
+-#   define CUSTOMSAVER "tail +%Bc %A | %e"
++#   define CUSTOMSAVER "tail -c +%B %A | %e"
+ #endif
+ 
+ #ifndef VERIFY_RIPEM
+diff --git a/environment.SH b/environment.SH
+index 9b917eb..0738000 100644
+--- a/environment.SH
++++ b/environment.SH
+@@ -194,7 +194,7 @@ The variables:
+       The shell command to execute in order to extract data to either
+       /bin/sh or a user-specified command.
+ 
+-      Default: tail +%Bc %A | %e
++      Default: tail -c +%B %A | %e
+ 
+  FIRSTLINE (%)
+       Controls the format of the line displayed at the top of an article.
+@@ -501,10 +501,10 @@ The variables:
+       ("s | command" or "w | command").  The command typed by the user is
+       substituted in as %b.
+ 
+-      Default: %(%B=^0\$?<%A:tail +%Bc %A |) %b
++      Default: %(%B=^0\$?<%A:tail -c +%B %A |) %b
+ 
+       Explanation: if %B is 0, the command is "<%A  %b", otherwise the
+-      command is "tail +%Bc %A | %b".
++      command is "tail -c +%B %A | %b".
+ 
+  REPLYTO
+       The value of the "Reply-To:" header, if needed.
+diff --git a/mbox_saver.SH b/mbox_saver.SH
+index e19007f..9aa028d 100644
+--- a/mbox_saver.SH
++++ b/mbox_saver.SH
+@@ -28,7 +28,7 @@ case $mboxchar in
+   if $test "\$5" = 0 -a ! "\$4" = 0 ; then
+     $echo "Article: \$4 of \$6"
+   fi
+-  $tail +\$5c \$1
++  $tail -c +\$5 \$1
+   $echo ""
+   $echo ""
+   $echo "$CTRLA$CTRLA$CTRLA$CTRLA" ) >> \$7
+@@ -40,7 +40,7 @@ case $mboxchar in
+   if $test "\$5" = 0 -a ! "\$4" = 0 ; then
+     $echo "Article: \$4 of \$6"
+   fi
+-  $tail +\$5c \$1 | $sed "s/^[Ff]rom />&/"
++  $tail -c +\$5 \$1 | $sed "s/^[Ff]rom />&/"
+   $echo ""
+   $echo "" ) >> \$7
+ !GROK!THIS!
+diff --git a/norm_saver.SH b/norm_saver.SH
+index 4880c31..3aaa7de 100644
+--- a/norm_saver.SH
++++ b/norm_saver.SH
+@@ -22,7 +22,7 @@ export PATH || (echo "OOPS, this isn't sh.  Desperation time.  I will feed mysel
+ ( case "\$5" in
+   0) $echo "Article: \$4 of \$6" ;;
+   esac
+-  $tail +\$5c \$1
++  $tail -c +\$5 \$1
+   $echo ""
+   $echo "" ) >> \$7
+ !GROK!THIS!
+diff --git a/trn.1 b/trn.1
+index 76171e8..7704c4d 100644
+--- a/trn.1
++++ b/trn.1
+@@ -2140,7 +2140,7 @@ Default: whatever your news administrator compiled in, usually vi.
+ The shell command to execute in order to extract data to either /bin/sh
+ or a user-specified command.
+ .Sp
+-Default: tail +%Bc %A | %e
++Default: tail -c +%B %A | %e
+ .Ip "FIRSTLINE (%)" 8
+ Controls the format of the line displayed at the top of an article.
+ Warning: this may go away.
+@@ -2410,10 +2410,10 @@ The shell command to execute in order to accomplish a save to a pipe
+ (\*(L"s\ |\ command\*(R" or \*(L"w\ |\ command\*(R").
+ The command typed by the user is substituted in as %b.
+ .Sp
+-Default: %(%B=^0$?<%A:tail +%Bc %A |) %b
++Default: %(%B=^0$?<%A:tail -c +%B %A |) %b
+ .Sp
+ Explanation: if %B is 0, the command is \*(L"<%A %b\*(R", otherwise
+-the command is \*(L"tail +%Bc %A | %b\*(R".
++the command is \*(L"tail -c +%B %A | %b\*(R".
+ .Ip REPLYTO 8
+ The value of the \*(L"Reply-To:\*(R" header, if needed.
+ .Sp Default: \*(L" \*(R".

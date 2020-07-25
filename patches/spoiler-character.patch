@@ -1,0 +1,26 @@
+From 21205e16405c97a7c7ca985943605b058ac31421 Mon Sep 17 00:00:00 2001
+From: Colin Watson <cjwatson@debian.org>
+Date: Sun, 26 Jan 2014 21:00:37 +0000
+Subject: Treat formfeeds as spoiler characters even not at start of line
+
+Forwarded: no
+Last-Update: 2010-03-08
+
+Patch-Name: spoiler-character.patch
+---
+ art.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/art.c b/art.c
+index a6b544e..d2c5d44 100644
+--- a/art.c
++++ b/art.c
+@@ -461,7 +461,7 @@ do_article()
+ 			    break;
+ 			if (outputok)
+ 			    fputs("^L",stdout);
+-			if (bufptr == LINE_PTR(alinebeg) && highlight != artline)
++			if (highlight != artline)
+ 			    linenum = 32700;
+ 			    /* how is that for a magic number? */
+ 			bufptr++;

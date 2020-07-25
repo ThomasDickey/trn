@@ -1,0 +1,34 @@
+From f67eb823d82efa02a83190ffcdc599b50017a181 Mon Sep 17 00:00:00 2001
+From: Colin Watson <cjwatson@debian.org>
+Date: Fri, 29 Aug 2014 22:01:46 -0700
+Subject: Include <sys/ioctl.h> even if <sys/filio.h> exists
+
+We may need it for terminal ioctls such as TIOCGWINSZ.  Fixes build on
+Debian GNU/kFreeBSD.
+
+Forwarded: no
+Last-Update: 2014-08-29
+
+Patch-Name: include-sys-ioctl.patch
+---
+ common.h | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/common.h b/common.h
+index d18a7df..0181e49 100644
+--- a/common.h
++++ b/common.h
+@@ -15,10 +15,9 @@
+ #include <signal.h>
+ #ifdef I_SYS_FILIO
+ # include <sys/filio.h>
+-#else
+-# ifdef I_SYS_IOCTL
+-#   include <sys/ioctl.h>
+-# endif
++#endif
++#ifdef I_SYS_IOCTL
++# include <sys/ioctl.h>
+ #endif
+ #ifdef I_VFORK
+ # include <vfork.h>

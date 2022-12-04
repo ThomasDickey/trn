@@ -477,6 +477,25 @@ register ARTICLE* child;
     }
 }
 
+/* Helper function for comparing article dates.  If the dates are
+** equal we compare article numbers.  This means that different
+** articles always compare as having different dates, and makes the
+** threading algorithm stable as to starting point.
+** Returns what Perl calls (left <=> right) ie -1 if left is before
+** right, +1 if after, 0 if same.
+*/
+static int
+compare_article_dates(left, right)
+register ARTICLE* left;
+register ARTICLE* right;
+{
+    if (left->date < right->date) return -1;
+    if (left->date > right->date) return +1;
+    if (left->num < right->num) return -1;
+    if (left->num > right->num) return +1;
+    return 0;
+}
+
 /* Link an article to its parent article.  If its parent pointer is zero,
 ** link it to its thread.  Sorts siblings by date.
 */
@@ -489,7 +508,7 @@ register ARTICLE* child;
     if (!(ap = child->parent)) {
 	register SUBJECT* sp = child->subj;
 	ap = sp->thread;
-	if (!ap || child->date < ap->date) {
+	if (!ap || compare_article_dates(child, ap) < 0) {
 	    do {
 		sp->thread = child;
 		sp = sp->thread_link;
@@ -499,12 +518,13 @@ register ARTICLE* child;
 	    goto sibling_search;
     } else {
 	ap = ap->child1;
-	if (!ap || child->date < ap->date) {
+	if (!ap || compare_article_dates(child, ap) < 0) {
 	    child->sibling = ap;
 	    child->parent->child1 = child;
 	} else {
 	  sibling_search:
-	    while (ap->sibling && ap->sibling->date <= child->date)
+	    while (ap->sibling &&
+                   compare_article_dates(ap->sibling, child) <= 0)
 		ap = ap->sibling;
 	    child->sibling = ap->sibling;
 	    ap->sibling = child;

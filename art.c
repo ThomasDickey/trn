@@ -461,7 +461,7 @@ do_article()
 			    break;
 			if (outputok)
 			    fputs("^L",stdout);
-			if (bufptr == LINE_PTR(alinebeg) && highlight != artline)
+			if (highlight != artline)
 			    linenum = 32700;
 			    /* how is that for a magic number? */
 			bufptr++;

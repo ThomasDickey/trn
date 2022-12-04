@@ -532,16 +532,38 @@ int size;
 		} while (e && e[1] != '=');
 		if (e) {
 		    int len = e - f + 2;
-		    i -= len-1;
-		    size -= len;
-		    q += 3;
-		    f = e+2;
-		    *e = '\0';
-		    if (ch == 'q' || ch == 'Q')
-			len = qp_decodestring(t, q, 1);
-		    else
-			len = b64_decodestring(t, q);
-		    *e = '?';
+		    if (i < len - 1) {
+			/* Cope with encoded strings that aren't properly
+			 * terminated.
+			 */
+			char preserve;
+			f += size;
+			e = f;
+			size -= i;
+			i = 0;
+			q += 3;
+			preserve = *e;
+			if (preserve)
+			    *e = '\0';
+			if (ch == 'q' || ch == 'Q')
+			    len = qp_decodestring(t, q, 1);
+			else
+			    len = b64_decodestring(t, q);
+			if (preserve)
+			    *e = preserve;
+		    } else {
+			/* Normal case with proper termination. */
+			i -= len-1;
+			size -= len;
+			q += 3;
+			f = e+2;
+			*e = '\0';
+			if (ch == 'q' || ch == 'Q')
+			    len = qp_decodestring(t, q, 1);
+			else
+			    len = b64_decodestring(t, q);
+			*e = '?';
+		    }
 		    size += len;
 		    for ( ; len--; t++) {
 			if (AT_GREY_SPACE(t))

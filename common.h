@@ -15,10 +15,9 @@
 #include <signal.h>
 #ifdef I_SYS_FILIO
 # include <sys/filio.h>
-#else
-# ifdef I_SYS_IOCTL
-#   include <sys/ioctl.h>
-# endif
+#endif
+#ifdef I_SYS_IOCTL
+# include <sys/ioctl.h>
 #endif
 #ifdef I_VFORK
 # include <vfork.h>
@@ -55,7 +54,7 @@
 #include "typedef.h"
 
 #define BITSPERBYTE 8
-#define LBUFLEN 1024	/* line buffer length */
+#define LBUFLEN 2048	/* line buffer length */
 			/* (don't worry, .newsrc lines can exceed this) */
 #define CBUFLEN 512	/* command buffer length */
 #define PUSHSIZE 256
@@ -651,15 +650,15 @@
 #endif
 
 #ifndef PIPESAVER		/* % */
-#   define PIPESAVER "%(%B=^0$?<%A:tail +%Bc %A |) %b"
+#   define PIPESAVER "%(%B=^0$?<%A:tail -c +%B %A |) %b"
 #endif
 
 #ifndef SHARSAVER
-#   define SHARSAVER "tail +%Bc %A | /bin/sh"
+#   define SHARSAVER "tail -c +%B %A | /bin/sh"
 #endif
 
 #ifndef CUSTOMSAVER
-#   define CUSTOMSAVER "tail +%Bc %A | %e"
+#   define CUSTOMSAVER "tail -c +%B %A | %e"
 #endif
 
 #ifndef VERIFY_RIPEM

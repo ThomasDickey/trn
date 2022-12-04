@@ -22,7 +22,7 @@ export PATH || (echo "OOPS, this isn't sh.  Desperation time.  I will feed mysel
 ( case "\$5" in
   0) $echo "Article: \$4 of \$6" ;;
   esac
-  $tail +\$5c \$1
+  $tail -c +\$5 \$1
   $echo ""
   $echo "" ) >> \$7
 !GROK!THIS!

@@ -2140,7 +2140,7 @@ Default: whatever your news administrator compiled in, usually vi.
 The shell command to execute in order to extract data to either /bin/sh
 or a user-specified command.
 .Sp
-Default: tail +%Bc %A | %e
+Default: tail -c +%B %A | %e
 .Ip "FIRSTLINE (%)" 8
 Controls the format of the line displayed at the top of an article.
 Warning: this may go away.
@@ -2410,10 +2410,10 @@ The shell command to execute in order to accomplish a save to a pipe
 (\*(L"s\ |\ command\*(R" or \*(L"w\ |\ command\*(R").
 The command typed by the user is substituted in as %b.
 .Sp
-Default: %(%B=^0$?<%A:tail +%Bc %A |) %b
+Default: %(%B=^0$?<%A:tail -c +%B %A |) %b
 .Sp
 Explanation: if %B is 0, the command is \*(L"<%A %b\*(R", otherwise
-the command is \*(L"tail +%Bc %A | %b\*(R".
+the command is \*(L"tail -c +%B %A | %b\*(R".
 .Ip REPLYTO 8
 The value of the \*(L"Reply-To:\*(R" header, if needed.
 .Sp Default: \*(L" \*(R".

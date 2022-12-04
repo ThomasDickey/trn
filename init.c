@@ -151,6 +151,7 @@ char* argv[];
 
     datasrc_init();
     ngdata_init();
+    util_init();
 
     /* now read in the .newsrc file(s) */
 
@@ -180,7 +181,6 @@ char* argv[];
     trn_init();
     decode_init();
     thread_init();
-    util_init();
     xmouse_init(argv[0]);
 
     writelast();	/* remember last runtime in .rnlast */

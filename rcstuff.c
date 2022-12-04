@@ -750,7 +750,8 @@ char* what;
 int flags;
 {
     char* ntoforget;
-    char promptbuf[128];
+#define PBLEN 240
+    char promptbuf[PBLEN+1];
     int autosub;
 
 #ifdef VERBOSE
@@ -826,11 +827,11 @@ int flags;
 	} else {
 #ifdef VERBOSE
 	    IF(verbose)
-		sprintf(promptbuf,"\nNewsgroup %s not in .newsrc -- subscribe?",ngname);
+		snprintf(promptbuf,PBLEN,"\nNewsgroup %s not in .newsrc -- subscribe?",ngname);
 	    ELSE
 #endif
 #ifdef TERSE
-		sprintf(promptbuf,"\nSubscribe %s?",ngname);
+		snprintf(promptbuf,PBLEN,"\nSubscribe %s?",ngname);
 #endif
 reask_add:
 	    in_char(promptbuf,'A',"ynYN");
@@ -907,13 +908,13 @@ y or SP to subscribe, Y to subscribe all new groups, N to unsubscribe all\n",
     else if (ngptr->subscribechar == NEGCHAR) {/* unsubscribed? */
 #ifdef VERBOSE
 	IF(verbose)
-	    sprintf(promptbuf,
+	    snprintf(promptbuf,PBLEN,
 "\nNewsgroup %s is unsubscribed -- resubscribe?",ngname)
   FLUSH;
 	ELSE
 #endif
 #ifdef TERSE
-	    sprintf(promptbuf,"\nResubscribe %s?",ngname)
+	    snprintf(promptbuf,PBLEN,"\nResubscribe %s?",ngname)
 	      FLUSH;
 #endif
 reask_unsub:

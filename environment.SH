@@ -194,7 +194,7 @@ The variables:
       The shell command to execute in order to extract data to either
       /bin/sh or a user-specified command.
 
-      Default: tail +%Bc %A | %e
+      Default: tail -c +%B %A | %e
 
  FIRSTLINE (%)
       Controls the format of the line displayed at the top of an article.
@@ -501,10 +501,10 @@ The variables:
       ("s | command" or "w | command").  The command typed by the user is
       substituted in as %b.
 
-      Default: %(%B=^0\$?<%A:tail +%Bc %A |) %b
+      Default: %(%B=^0\$?<%A:tail -c +%B %A |) %b
 
       Explanation: if %B is 0, the command is "<%A  %b", otherwise the
-      command is "tail +%Bc %A | %b".
+      command is "tail -c +%B %A | %b".
 
  REPLYTO
       The value of the "Reply-To:" header, if needed.

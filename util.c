@@ -253,8 +253,10 @@ char* s;
     sigset(SIGTTIN,stop_catcher);
 #endif
 #ifdef SUPPORT_NNTP
-    if (datasrc && datasrc->auth_user)
-	UNLINK(nntp_auth_file);
+    if (datasrc && datasrc->auth_user) {
+	fprintf(stderr, "would have unlinked %s\n", nntp_auth_file);
+	/* UNLINK(nntp_auth_file); */
+    }
 #endif
     return ret;
 }

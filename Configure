@@ -4098,7 +4098,7 @@ echo "Checking your choice of C compiler and flags for coherency..." >&4
 $cat > try.c <<'EOF'
 #include <stdio.h>
 #include <stdlib.h>
-main() { printf("Ok\n"); exit(0); }
+int main() { printf("Ok\n"); exit(0); }
 EOF
 set X $cc $optimize $ccflags -o try $ldflags try.c $libs
 shift

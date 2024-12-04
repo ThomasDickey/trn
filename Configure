@@ -3047,6 +3047,7 @@ echo " "
 echo "Checking for GNU cc in disguise and/or its version number..." >&4
 $cat >gccvers.c <<EOM
 #include <stdio.h>
+#include <stdlib.h>
 int main() {
 #ifdef __GNUC__
 #ifdef __VERSION__

@@ -3047,6 +3047,7 @@ echo " "
 echo "Checking for GNU cc in disguise and/or its version number..." >&4
 $cat >gccvers.c <<EOM
 #include <stdio.h>
+#include <stdlib.h>
 int main() {
 #ifdef __GNUC__
 #ifdef __VERSION__
@@ -4096,7 +4097,8 @@ echo " "
 echo "Checking your choice of C compiler and flags for coherency..." >&4
 $cat > try.c <<'EOF'
 #include <stdio.h>
-main() { printf("Ok\n"); exit(0); }
+#include <stdlib.h>
+int main() { printf("Ok\n"); exit(0); }
 EOF
 set X $cc $optimize $ccflags -o try $ldflags try.c $libs
 shift
@@ -4303,6 +4305,7 @@ echo " "
 echo "Checking for GNU C Library..." >&4
 cat >gnulibc.c <<EOM
 #include <stdio.h>
+#include <stdlib.h>
 int
 main()
 {
@@ -5528,6 +5531,7 @@ case "$d_wifstat" in
 	$cat >foo.c <<EOCP
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <stdlib.h>
 
 main()
 {
@@ -6118,6 +6122,7 @@ $cat >try.c <<'EOCP'
 #ifdef I_SYSSELECT
 #include <sys/select.h>
 #endif
+#include <stdlib.h>
 main()
 {
 	struct tm foo;

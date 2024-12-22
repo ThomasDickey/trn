@@ -44,12 +44,12 @@ sed <<!GROK!THIS! >config.h -e 's!^#undef\(.*\)/\*!/\*#define\1\*//\*!' -e 's!^#
 #define __attribute__(_arg_)
 #endif
 
-/* HAS_GETPWENT:
+/* HAVE_GETPWENT:
  *	This symbol, if defined, indicates that the getpwent routine is
  *	available for sequential access of the passwd database.
  *	If this is not available, the older getpw() function may be available.
  */
-#$d_getpwent HAS_GETPWENT		/**/
+#$d_getpwent HAVE_GETPWENT		/**/
 
 /* INTERNET:
  *	This symbol, if defined, indicates that there is a mailer available
@@ -57,30 +57,30 @@ sed <<!GROK!THIS! >config.h -e 's!^#undef\(.*\)/\*!/\*#define\1\*//\*!' -e 's!^#
  */
 #$d_internet	INTERNET	/**/
 
-/* HAS_MEMCMP:
+/* HAVE_MEMCMP:
  *	This symbol, if defined, indicates that the memcmp routine is available
  *	to compare blocks of memory.
  */
-#$d_memcmp HAS_MEMCMP	/**/
+#$d_memcmp HAVE_MEMCMP	/**/
 
-/* HAS_MEMCPY:
+/* HAVE_MEMCPY:
  *	This symbol, if defined, indicates that the memcpy routine is available
  *	to copy blocks of memory.
  */
-#$d_memcpy HAS_MEMCPY	/**/
+#$d_memcpy HAVE_MEMCPY	/**/
 
-/* HAS_MEMSET:
+/* HAVE_MEMSET:
  *	This symbol, if defined, indicates that the memset routine is available
  *	to set blocks of memory.
  */
-#$d_memset HAS_MEMSET	/**/
+#$d_memset HAVE_MEMSET	/**/
 
-/* HAS_MKDIR:
+/* HAVE_MKDIR:
  *	This symbol, if defined, indicates that the mkdir routine is available
  *	to create directories.  Otherwise you should fork off a new process to
  *	exec /bin/mkdir.
  */
-#$d_mkdir HAS_MKDIR		/**/
+#$d_mkdir HAVE_MKDIR		/**/
 
 /* NEWS_ADMIN:
  *	This symbol, if defined, contains the login name of the news
@@ -100,30 +100,30 @@ sed <<!GROK!THIS! >config.h -e 's!^#undef\(.*\)/\*!/\*#define\1\*//\*!' -e 's!^#
  */
 #$d_normsig NORMSIG		/**/
 
-/* HAS_RDCHK:
+/* HAVE_RDCHK:
  *	This symbol, if defined, indicates that the rdchk routine is available
  *	to find out if there is input pending on an IO channel.  Generally
  *	the routine is used only if FIONREAD and O_NDELAY aren't available.
  */
-#$d_rdchk HAS_RDCHK		/**/
+#$d_rdchk HAVE_RDCHK		/**/
 
-/* HAS_SIGBLOCK:
+/* HAVE_SIGBLOCK:
  *	This symbol, if defined, indicates that the sigblock routine is
  *	available to block signal reception.
  */
-#$d_sigblock HAS_SIGBLOCK	/**/
+#$d_sigblock HAVE_SIGBLOCK	/**/
 
-/* HAS_SIGHOLD:
+/* HAVE_SIGHOLD:
  *	This symbol, if defined, indicates that the sighold routine is
  *	available to hold signals.
  */
-#$d_sighold HAS_SIGHOLD	/**/
+#$d_sighold HAVE_SIGHOLD	/**/
 
-/* HAS_STRCASECMP:
+/* HAVE_STRCASECMP:
  *	This symbol, if defined, indicates that the strcasecmp() routine is
  *	available for case-insensitive string compares.
  */
-#$d_strccmp HAS_STRCASECMP	/**/
+#$d_strccmp HAVE_STRCASECMP	/**/
 
 /* UNION_WAIT:
  *	This symbol if defined indicates to the C program that the argument
@@ -133,10 +133,10 @@ sed <<!GROK!THIS! >config.h -e 's!^#undef\(.*\)/\*!/\*#define\1\*//\*!' -e 's!^#
  */
 #$d_uwait UNION_WAIT		/**/
 
-/* HAS_VFORK:
+/* HAVE_VFORK:
  *	This symbol, if defined, indicates that vfork() exists.
  */
-#$d_vfork HAS_VFORK	/**/
+#$d_vfork HAVE_VFORK	/**/
 
 /* Signal_t:
  *	This symbol's value is either "void" or "int", corresponding to the
@@ -305,32 +305,32 @@ sed <<!GROK!THIS! >config.h -e 's!^#undef\(.*\)/\*!/\*#define\1\*//\*!' -e 's!^#
 #define ACTIVE "$active"		/**/
 #$d_acttimes ACTIVE_TIMES "$acttimes"		/**/
 
-/* HAS_FTIME:
+/* HAVE_FTIME:
  *	This symbol, if defined, indicates that the ftime() routine exists.
  *	It is basically a sub-second accuracy clock, but is less accurate
  *	than gettimeofday(2) anyway. The type "Timeval" should be used to
  *	refer to "struct timeb".
  */
-/* HAS_GETTIMEOFDAY:
+/* HAVE_GETTIMEOFDAY:
  *	This symbol, if defined, indicates that the gettimeofday() system
  *	call is available for a sub-second accuracy clock. Usually, the file
  *	<sys/resource.h> needs to be included (see I_SYS_RESOURCE).
  *	The type "Timeval" should be used to refer to "struct timeval".
  */
-#$d_ftime HAS_FTIME		/**/
-#$d_gettimeod HAS_GETTIMEOFDAY	/**/
-#ifdef HAS_GETTIMEOFDAY
+#$d_ftime HAVE_FTIME		/**/
+#$d_gettimeod HAVE_GETTIMEOFDAY	/**/
+#ifdef HAVE_GETTIMEOFDAY
 #define Timeval struct timeval	/* Structure used by gettimeofday() */
 #endif
-#if defined(HAS_FTIME) && !defined(Timeval)
+#if defined(HAVE_FTIME) && !defined(Timeval)
 #define Timeval struct timeb		/* Structure used by ftime() */
 #endif
 
-/* HAS_GETHOSTNAME:
+/* HAVE_GETHOSTNAME:
  *	This symbol, if defined, indicates that the C program may use the
  *	gethostname() routine to derive the host name.
  */
-/* HAS_UNAME:
+/* HAVE_UNAME:
  *	This symbol, if defined, indicates that the C program may use the
  *	uname() routine to derive the host name.
  */
@@ -341,36 +341,36 @@ sed <<!GROK!THIS! >config.h -e 's!^#undef\(.*\)/\*!/\*#define\1\*//\*!' -e 's!^#
  *	Note that the command uses a fully qualified path, so that it is safe
  *	even if used by a process with super-user privileges.
  */
-/* HAS_RES_INIT:
+/* HAVE_RES_INIT:
  *	This symbol, if defined, indicates that the C program may use the
  *	res_init() routine to derive the domain.
  */
-/* HAS_GETDOMAINNAME:
+/* HAVE_GETDOMAINNAME:
  *	This symbol, if defined, indicates that the C program may use the
  *	getdomainname() routine to derive the domain.
  */
-#$d_gethname HAS_GETHOSTNAME	/**/
-#$d_uname HAS_UNAME		/**/
+#$d_gethname HAVE_GETHOSTNAME	/**/
+#$d_uname HAVE_UNAME		/**/
 #$d_phostcmd PHOSTCMD "$aphostcmd"	/* How to get the host name */
-#$d_resinit HAS_RES_INIT	/**/
-#$d_getdname HAS_GETDOMAINNAME	/**/
+#$d_resinit HAVE_RES_INIT	/**/
+#$d_getdname HAVE_GETDOMAINNAME	/**/
 
-/* HAS_GETWD:
+/* HAVE_GETWD:
  *	This symbol, if defined, indicates that the getwd routine is
  *	available to get the working directory.
  */
-/* HAS_GETCWD:
+/* HAVE_GETCWD:
  *	This symbol, if defined, indicates that the getcwd routine is
  *	available to get the working directory.
  */
-#$d_getwd HAS_GETWD		/**/
-#$d_getcwd HAS_GETCWD		/**/
+#$d_getwd HAVE_GETWD		/**/
+#$d_getcwd HAVE_GETCWD		/**/
 
-/* HAS_TERMLIB:
+/* HAVE_TERMLIB:
  *	This symbol, when defined, indicates that termlib-style routines
  *	are available.  There is nothing to include.
  */
-#$d_havetlib	HAS_TERMLIB	/**/
+#$d_havetlib	HAVE_TERMLIB	/**/
 
 /* IGNOREORG:
  *	This symbol, if defined, indicates that the ORGANIZATION environment
@@ -393,7 +393,7 @@ sed <<!GROK!THIS! >config.h -e 's!^#undef\(.*\)/\*!/\*#define\1\*//\*!' -e 's!^#
  *	This symbol, if defined, indicates that .thread files can be
  *	grabbed via NNTP.
  */
-/* HAS_LOCAL_SPOOL:
+/* HAVE_LOCAL_SPOOL:
  *	This symbol, if defined, indicates that there's a local spool
  *	directory configured into trn.
  */
@@ -401,7 +401,7 @@ sed <<!GROK!THIS! >config.h -e 's!^#undef\(.*\)/\*!/\*#define\1\*//\*!' -e 's!^#
 #$d_genauth USE_GENAUTH	/**/
 #define SERVER_NAME "$servername"  	/**/
 #$d_xthread SUPPORT_XTHREAD  	/**/
-#$d_local HAS_LOCAL_SPOOL	/**/
+#$d_local HAVE_LOCAL_SPOOL	/**/
 
 /* void:
  *	This symbol is used for void functions.  On implementations which
@@ -410,36 +410,36 @@ sed <<!GROK!THIS! >config.h -e 's!^#undef\(.*\)/\*!/\*#define\1\*//\*!' -e 's!^#
  */
 #$d_novoid void int	/**/
 
-/* HAS_RENAME:
+/* HAVE_RENAME:
  *	This symbol, if defined, indicates that the rename routine is available
  *	to rename files.  Otherwise you should do the unlink(), link(), unlink()
  *	trick.
  */
-#$d_rename HAS_RENAME	/**/
+#$d_rename HAVE_RENAME	/**/
 
 /* size_t:
  *	This symbol is defined as an int if no size_t definition exists.
  */
 #$d_sizet	size_t int		/**/
 
-/* HAS_STRCHR:
+/* HAVE_STRCHR:
  *	This symbol is defined to indicate that the strchr()/strrchr()
  *	functions are available for string searching. If not, try the
  *	index()/rindex() pair.
  */
-#$d_strchr HAS_STRCHR	/**/
+#$d_strchr HAVE_STRCHR	/**/
 
-/* HAS_STRFTIME:
+/* HAVE_STRFTIME:
  *	This symbol, if defined, indicates that the strftime routine is
  *	available to format locale-specific times.
  */
-#$d_strftime HAS_STRFTIME		/**/
+#$d_strftime HAVE_STRFTIME		/**/
 
-/* HAS_STRSTR:
+/* HAVE_STRSTR:
  *	This symbol, if defined, indicates that the strstr routine is
  *	available to find substrings.
  */
-#$d_strstr HAS_STRSTR	/**/
+#$d_strstr HAVE_STRSTR	/**/
 
 /* EMULATE_NDIR:
  *	This symbol, if defined, indicates that the program should compile

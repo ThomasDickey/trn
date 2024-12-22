@@ -179,12 +179,12 @@ nntp_check()
     int len = 0;
 
  read_it:
-#ifdef HAS_SIGHOLD
+#ifdef HAVE_SIGHOLD
     sighold(SIGINT);
 #endif
     errno = 0;
     ret = (fgets(ser_line, sizeof ser_line, nntplink.rd_fp) == NULL)? -2 : 0;
-#ifdef HAS_SIGHOLD
+#ifdef HAVE_SIGHOLD
     sigrelse(SIGINT);
 #endif
     if (ret < 0) {
@@ -261,7 +261,7 @@ int  len;
     int ch, n = 0;
     char* cp = bp;
 
-#ifdef HAS_SIGHOLD
+#ifdef HAVE_SIGHOLD
     sighold(SIGINT);
 #endif
     if (nntplink.trailing_CR) {
@@ -298,7 +298,7 @@ int  len;
 	len--;
     }
     *cp = '\0';
-#ifdef HAS_SIGHOLD
+#ifdef HAVE_SIGHOLD
     sigrelse(SIGINT);
 #endif
     return n;

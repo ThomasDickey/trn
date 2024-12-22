@@ -107,7 +107,7 @@ EXT int lflusho INIT(LFLUSHO);
  *    and the tputs routine, or you'll have to redefine the macros below
  */
 
-#ifdef HAS_TERMLIB
+#ifdef HAVE_TERMLIB
 EXT int tc_GT;				/* hardware tabs */
 EXT char* tc_BC INIT(NULL);		/* backspace character */
 EXT char* tc_UP INIT(NULL);		/* move cursor up one line */
@@ -167,9 +167,9 @@ EXT int just_a_sec INIT(960);		/* 1 sec at current baud rate */
 #define insert_line() tputs(tc_IL,1,putchr) FLUSH
 #define carriage_return() term_col=0, tputs(tc_CR,1,putchr) FLUSH
 #define dingaling() tputs(tc_VB,1,putchr) FLUSH
-#else /* !HAS_TERMLIB */
+#else /* !HAVE_TERMLIB */
 ..."Don't know how to define the term macros!"
-#endif /* !HAS_TERMLIB */
+#endif /* !HAVE_TERMLIB */
 
 #define input_pending() finput_pending(TRUE)
 #define macro_pending() finput_pending(FALSE)
@@ -205,7 +205,7 @@ void save_typeahead _((char*,int));
 void settle_down _((void));
 Signal_t alarm_catcher _((int));
 int read_tty _((char*,int));
-#if !defined(FIONREAD) && !defined(HAS_RDCHK) && !defined(MSDOS)
+#if !defined(FIONREAD) && !defined(HAVE_RDCHK) && !defined(MSDOS)
 int circfill _((void));
 #endif
 void pushchar _((char_int));

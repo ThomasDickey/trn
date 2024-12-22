@@ -39,7 +39,7 @@ static char* regexp_specials = "^$.*[\\/?%";
 
 char orgname[] = ORGNAME;
 
-#ifdef HAS_UNAME
+#ifdef HAVE_UNAME
 #include <sys/utsname.h>
 struct utsname utsn;
 #endif
@@ -61,7 +61,7 @@ int tcbuf_len;
 
 #ifdef NEWS_ADMIN
     {
-#ifdef HAS_GETPWENT
+#ifdef HAVE_GETPWENT
 	struct passwd* pwd = getpwnam(NEWS_ADMIN);
 
 	if (pwd != NULL)
@@ -73,9 +73,9 @@ int tcbuf_len;
 	strcat(tildenews, NEWS_ADMIN);
 	(void) filexp(tildenews);
 #else
-	... "Define either HAS_GETPWENT or TILDENAME to get NEWS_ADMIN"
+	... "Define either HAVE_GETPWENT or TILDENAME to get NEWS_ADMIN"
 #endif  /* TILDENAME */
-#endif	/* HAS_GETPWENT */
+#endif	/* HAVE_GETPWENT */
     }
 
     /* if this is the news admin then load his UID into newsuid */

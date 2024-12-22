@@ -3,7 +3,7 @@
 /* This software is copyrighted as detailed in the LICENSE file. */
 
 
-#ifdef HAS_GETPWENT
+#ifdef HAVE_GETPWENT
 #   include <pwd.h>
 #endif
 
@@ -84,7 +84,7 @@ char*	getenv();
 #define strnNE(s1,s2,l) (strncmp(s1,s2,l))
 #define strnEQ(s1,s2,l) (!strncmp(s1,s2,l))
 
-#ifdef HAS_STRCASECMP
+#ifdef HAVE_STRCASECMP
 #define strcaseCMP(s1,s2) strcasecmp(s1,s2)
 #define strcaseNE(s1,s2) (strcasecmp(s1,s2))
 #define strcaseEQ(s1,s2) (!strcasecmp(s1,s2))
@@ -102,7 +102,7 @@ char*	getenv();
 
 /* some slight-of-hand for compatibility issues */
 
-#ifdef HAS_STRCHR
+#ifdef HAVE_STRCHR
 # ifndef index
 #   define index strchr
 # endif
@@ -110,17 +110,17 @@ char*	getenv();
 #   define rindex strrchr
 # endif
 #endif
-#ifdef HAS_MEMCMP
+#ifdef HAVE_MEMCMP
 # ifndef bcmp
 #   define bcmp(s,d,l) memcmp((s),(d),(l))
 # endif
 #endif
-#ifdef HAS_MEMCPY
+#ifdef HAVE_MEMCPY
 # ifndef bcopy
 #   define bcopy(s,d,l) memcpy((d),(s),(l))
 # endif
 #endif
-#ifdef HAS_MEMSET
+#ifdef HAVE_MEMSET
 # ifndef bzero
 #   define bzero(s,l) memset((s),0,(l))
 # endif
@@ -133,7 +133,7 @@ char*	strcat();
 char*	strcpy();
 #endif
 
-#ifdef HAS_GETPWENT
+#ifdef HAVE_GETPWENT
 # ifndef __STDC__
 struct passwd* getpwuid _((uid_t));
 struct passwd* getpwnam _((char*));

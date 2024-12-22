@@ -613,7 +613,7 @@ long n;
     if (rawbytes < 0)
 	return 0;
 
-#ifdef HAS_SIGHOLD
+#ifdef HAVE_SIGHOLD
     sighold(SIGINT);
 #endif
 
@@ -631,7 +631,7 @@ long n;
 	fread(buf, 1, 5, nntplink.rd_fp);
 	rawbytes = -1;
     }
-#ifdef HAS_SIGHOLD
+#ifdef HAVE_SIGHOLD
     sigrelse(SIGINT);
 #endif
     return n;

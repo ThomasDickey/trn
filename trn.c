@@ -834,7 +834,7 @@ trn_version()
     page_start();
     sprintf(msg,"Trn version:%s.\nConfigured for ",patchlevel);
 #ifdef SUPPORT_NNTP
-# ifdef HAS_LOCAL_SPOOL
+# ifdef HAVE_LOCAL_SPOOL
     strcat(msg,"both NNTP and local news access.\n");
 # else
     strcat(msg,"NNTP (plus individual local access).\n");

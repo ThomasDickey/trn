@@ -139,7 +139,7 @@ term_init()
 }
 
 #ifdef PENDING
-# if !defined(FIONREAD) && !defined(HAS_RDCHK) && !defined(MSDOS)
+# if !defined(FIONREAD) && !defined(HAVE_RDCHK) && !defined(MSDOS)
 int devtty;
 # endif
 #endif
@@ -159,7 +159,7 @@ char* tcbuf;		/* temp area for "uncompiled" termcap entry */
 #endif
 
 #ifdef PENDING
-#if !defined (FIONREAD) && !defined (HAS_RDCHK) && !defined(MSDOS)
+#if !defined (FIONREAD) && !defined (HAVE_RDCHK) && !defined(MSDOS)
     /* do no delay reads on something that always gets closed on exit */
 
     devtty = fileno(stdin);
@@ -176,7 +176,7 @@ char* tcbuf;		/* temp area for "uncompiled" termcap entry */
     
     /* get all that good termcap stuff */
 
-#ifdef HAS_TERMLIB
+#ifdef HAVE_TERMLIB
 #ifdef MSDOS
     tc_BC = "\b";
     tc_UP = "\033[A";
@@ -293,9 +293,9 @@ char* tcbuf;		/* temp area for "uncompiled" termcap entry */
 	tc_CL = NULL;
     leftcost = strlen(tc_BC);
     upcost = strlen(tc_UP);
-#else /* !HAS_TERMLIB */
+#else /* !HAVE_TERMLIB */
     ..."Don't know how to set the terminal!"
-#endif /* !HAS_TERMLIB */
+#endif /* !HAVE_TERMLIB */
     termlib_init();
     line_col_calcs();
     noecho();				/* turn off echo */
@@ -391,7 +391,7 @@ void
 arrow_macros(tmpbuf)
 char* tmpbuf;
 {
-#ifdef HAS_TERMLIB
+#ifdef HAVE_TERMLIB
     char lbuf[256];			/* should be long enough */
 #ifndef MSDOS
     char* tmpaddr = tmpbuf;
@@ -666,15 +666,15 @@ bool_int check_term;
 	ioctl(0, FIONREAD, &iocount);
 	return (int)iocount;
 # else /* !FIONREAD */
-#  ifdef HAS_RDCHK
+#  ifdef HAVE_RDCHK
 	return rdchk(0);
-#  else /* !HAS_RDCHK */
+#  else /* !HAVE_RDCHK */
 #   ifdef MSDOS
 	return kbhit();
 #   else /* !MSDOS */
 	return circfill();
 #   endif /* !MSDOS */
-#  endif /* !HAS_RDCHK */
+#  endif /* !HAVE_RDCHK */
 #  endif /* !FIONREAD */
     }
 # endif /* !PENDING */
@@ -1028,7 +1028,7 @@ int size;
 }
 
 #ifdef PENDING
-# if !defined(FIONREAD) && !defined(HAS_RDCHK) && !defined(MSDOS)
+# if !defined(FIONREAD) && !defined(HAVE_RDCHK) && !defined(MSDOS)
 int
 circfill()
 {
@@ -2352,14 +2352,14 @@ char* cp;
     y = cp[0] - 33;
 
     if (btn != 3) {
-#if defined(HAS_GETTIMEOFDAY) || defined(HAS_FTIME)
+#if defined(HAVE_GETTIMEOFDAY) || defined(HAVE_FTIME)
 	static double last_time = 0.;
 	double this_time = current_time();
 	if (last_btn == btn && last_y == y && this_time - last_time <= 0.75
 	 && (last_x == x || last_x == x-1 || last_x == x+1))
 	    btn |= 4;
 	last_time = this_time;
-#endif /* HAS_GETTIMEOFDAY || HAS_FTIME */
+#endif /* HAVE_GETTIMEOFDAY || HAVE_FTIME */
 	last_btn = (btn & 3);
 	last_x = x;
 	last_y = y;

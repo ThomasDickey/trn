@@ -56,7 +56,7 @@ void setdef _((char*,char*));
 #ifndef NO_FILELINKS
 void safelink _((char*,char*));
 #endif
-#ifndef HAS_STRSTR
+#ifndef HAVE_STRSTR
 char* trn_strstr _((char*,char*));
 #endif
 void verify_sig _((void));

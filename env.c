@@ -13,7 +13,7 @@
 #include "env.h"
 #include "env.ih"
 
-#ifdef HAS_RES_INIT
+#ifdef HAVE_RES_INIT
 #include <netinet/in.h>
 #include <arpa/nameser.h>
 #include <resolv.h>
@@ -101,7 +101,7 @@ char* tmpbuf;
     char* s;
     char* c;
 
-#ifdef HAS_GETPWENT
+#ifdef HAVE_GETPWENT
     struct passwd* pwd;
 
     if (loginName == NULL)
@@ -115,7 +115,7 @@ char* tmpbuf;
     if (!homedir)
 	homedir = savestr(pwd->pw_dir);
     s = pwd->pw_gecos;
-#else /* !HAS_GETPWENT */
+#else /* !HAVE_GETPWENT */
     int i;
 
     if (getpw(getuid(), tmpbuf+1) != 0)
@@ -136,7 +136,7 @@ char* tmpbuf;
 	homedir = savestr(buf);
     }
     s = tmpbuf;
-#endif /* !HAS_GETPWENT */
+#endif /* !HAVE_GETPWENT */
 #ifdef PASSNAMES
 #ifdef BERKNAMES
 #ifdef BERKJUNK
@@ -176,7 +176,7 @@ char* tmpbuf;
 	    s = "PUT_YOUR_NAME_HERE";
     }
 #endif /* !PASSNAMES */
-#ifdef HAS_GETPWENT
+#ifdef HAVE_GETPWENT
     endpwent();
 #endif
     return 1;
@@ -191,10 +191,10 @@ char* tmpbuf;
 
     /* Find the local hostname */
 
-#ifdef HAS_GETHOSTNAME
+#ifdef HAVE_GETHOSTNAME
     gethostname(tmpbuf,TCBUF_SIZE);
 #else
-# ifdef HAS_UNAME
+# ifdef HAVE_UNAME
     /* get sysname */
     uname(&utsn);
     strcpy(tmpbuf,utsn.nodename);
@@ -215,8 +215,8 @@ char* tmpbuf;
 #  else
     strcpy(tmpbuf, "!INVALID!");
 #  endif /* PHOSTCMD */
-# endif /* HAS_UNAME */
-#endif /* HAS_GETHOSTNAME */
+# endif /* HAVE_UNAME */
+#endif /* HAVE_GETHOSTNAME */
     localhost = savestr(tmpbuf);
 
     /* Build the host name that goes in postings */
@@ -249,14 +249,14 @@ char* tmpbuf;
     if (!index(tmpbuf,'.')) {
 	if (*tmpbuf)
 	    strcat(tmpbuf, ".");
-#ifdef HAS_RES_INIT
+#ifdef HAVE_RES_INIT
 	if (!(_res.options & RES_INIT))
 	    res_init();
 	if (_res.defdname != NULL)
 	    strcat(tmpbuf,_res.defdname);
 	else
 #endif
-#ifdef HAS_GETDOMAINNAME
+#ifdef HAVE_GETDOMAINNAME
 	if (getdomainname(buf,LBUFLEN) == 0)
 	    strcat(tmpbuf,buf);
 	else

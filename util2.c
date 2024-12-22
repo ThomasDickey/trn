@@ -135,7 +135,7 @@ register char* s;
 		    free(tildedir);
 		tildedir = NULL;
 		tildename = savestr(scrbuf);
-#ifdef HAS_GETPWENT	/* getpwnam() is not the paragon of efficiency */
+#ifdef HAVE_GETPWENT	/* getpwnam() is not the paragon of efficiency */
 		{
 		    struct passwd* pwd = getpwnam(tildename);
 		    if (pwd == NULL) {
@@ -260,7 +260,7 @@ bool_int case_matters;
     return NULL;
 }
 
-#ifndef HAS_STRCASECMP
+#ifndef HAVE_STRCASECMP
 static Uchar casemap[256] = {
     0x00,0x01,0x02,0x03,0x04,0x05,0x06,0x07,
     0x08,0x09,0x0A,0x0B,0x0C,0x0D,0x0E,0x0F,
@@ -297,7 +297,7 @@ static Uchar casemap[256] = {
 };
 #endif
 
-#ifndef HAS_STRCASECMP
+#ifndef HAVE_STRCASECMP
 int
 trn_casecmp(s1, s2)
 register char* s1;
@@ -311,7 +311,7 @@ register char* s2;
 }
 #endif
 
-#ifndef HAS_STRCASECMP
+#ifndef HAVE_STRCASECMP
 int
 trn_ncasecmp(s1, s2, len)
 register char* s1;

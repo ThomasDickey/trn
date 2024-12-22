@@ -291,7 +291,7 @@ do_article()
 			bufptr = art_line;
 		    }
 		    break;
-#ifdef HAS_STRFTIME
+#ifdef HAVE_STRFTIME
 		  case DATE_LINE:
 		    if (curr_artp->date != -1) {
 			strncpy(art_line,bufptr,6);

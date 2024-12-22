@@ -123,7 +123,7 @@ char* argv[];
 	    sprintf(command+strlen(command)," %s",wildarg);
 	if (nntp_command(command) <= 0)
 	    exit(1);
-#ifdef HAS_SIGHOLD
+#ifdef HAVE_SIGHOLD
 	sighold(SIGINT);
 #endif
 	if (nntp_check() <= 0) {
@@ -138,7 +138,7 @@ char* argv[];
 	    putc('\n', out_fp);
 	}
 
-#ifdef HAS_SIGHOLD
+#ifdef HAVE_SIGHOLD
 	sigrelse(SIGINT);
 #endif
 	nntp_close(TRUE);

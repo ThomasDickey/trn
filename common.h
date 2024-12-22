@@ -68,7 +68,7 @@
 #   define BERKELEY 	/* include job control signals? */
 #endif
 
-#if defined(FIONREAD) || defined(HAS_RDCHK) || defined(O_NDELAY) || defined(MSDOS)
+#if defined(FIONREAD) || defined(HAVE_RDCHK) || defined(O_NDELAY) || defined(MSDOS)
 #   define PENDING
 #endif
 
@@ -79,13 +79,13 @@
 #   define UNLINK(victim) unlink(victim)
 #endif
 
-#ifdef HAS_RENAME
+#ifdef HAVE_RENAME
 #   define RENAME(from,to) rename(from,to)
 #else
 #   define RENAME(from,to) safelink(from,to), UNLINK(from)
 #endif
 
-#ifdef HAS_STRSTR
+#ifdef HAVE_STRSTR
 #   define STRSTR(s1,s2) strstr((s1),(s2))
 #else
 #   define STRSTR(s1,s2) trn_strstr((s1),(s2))
@@ -207,7 +207,7 @@
 					/* login directory in /etc/passwd? */
 					/* (If it is not kept in passwd, */
 					/* but getpwnam() returns it, */
-					/* define the symbol HAS_GETPWENT) */
+					/* define the symbol HAVE_GETPWENT) */
 #endif
 #ifndef GCOSFIELD
 #   define GCOSFIELD 5
@@ -749,7 +749,7 @@
 #   undef NICEBG
 #endif
 
-#ifndef HAS_VFORK
+#ifndef HAVE_VFORK
 #   define vfork fork
 #endif
 

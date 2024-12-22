@@ -364,7 +364,7 @@ int buflen;
 {
     char* ret;
 
-#ifdef HAS_GETCWD
+#ifdef HAVE_GETCWD
     ret = getcwd(buf, buflen);
 #else
     ret = trn_getcwd(buf, buflen);
@@ -381,14 +381,14 @@ int buflen;
     return ret;
 }
 
-#ifndef HAS_GETCWD
+#ifndef HAVE_GETCWD
 static char*
 trn_getcwd(buf, len)
 char* buf;
 int len;
 {
     char* ret;
-#ifdef HAS_GETWD
+#ifdef HAVE_GETWD
     buf[len-1] = 0;
     ret = getwd(buf);
     if (buf[len-1]) {
@@ -468,7 +468,7 @@ int nametype;
 #ifdef MAKEDIR
     register char* end;
     register char* s;
-# ifdef HAS_MKDIR
+# ifdef HAVE_MKDIR
     int status = 0;
 # else
     char tmpbuf[1024];
@@ -482,7 +482,7 @@ int nametype;
 	    return 0;			/* nothing to make */
 	*end = '\0';			/* isolate file name */
     }
-# ifndef HAS_MKDIR
+# ifndef HAVE_MKDIR
     strcpy(tmpbuf,"mkdir");
 # endif
 
@@ -501,7 +501,7 @@ int nametype;
     
     for (s=dirname; s <= end; s++) {	/* this is grody but efficient */
 	if (!*s) {			/* something to make? */
-# ifdef HAS_MKDIR
+# ifdef HAVE_MKDIR
 	    status = status || mkdir(dirname,0777);
 # else
 	    sprintf(tbptr," %s",dirname);
@@ -513,7 +513,7 @@ int nametype;
     if (nametype == MD_DIR)		/* don't need final slash unless */
 	*end = '\0';			/*  a filename follows the dir name */
 
-# ifdef HAS_MKDIR
+# ifdef HAVE_MKDIR
     return status;
 # else
     return (tbptr==tmpbuf+5 ? 0 : doshell(sh,tmpbuf));/* exercise our faith */
@@ -596,7 +596,7 @@ char* new;
 }
 #endif
 
-#ifndef HAS_STRSTR
+#ifndef HAVE_STRSTR
 char*
 trn_strstr(s1, s2)
 char* s1;
@@ -610,7 +610,7 @@ char* s2;
 	    return p;
     return NULL;
 }
-#endif /* !HAS_STRSTR */
+#endif /* !HAVE_STRSTR */
 
 /* attempts to verify a cryptographic signature. */
 void
@@ -639,12 +639,12 @@ verify_sig()
 double
 current_time()
 {
-#ifdef HAS_GETTIMEOFDAY
+#ifdef HAVE_GETTIMEOFDAY
     Timeval t;
     (void) gettimeofday(&t, (struct timezone*)NULL);
     return (double)t.tv_usec / 1000000. + t.tv_sec;
 #else
-# ifdef HAS_FTIME
+# ifdef HAVE_FTIME
     Timeval t;
     ftime(&t);
     return (double)t.millitm / 1000. + t.time;

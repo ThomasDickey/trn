@@ -185,7 +185,7 @@ bool_int trunc;		/* should it be truncated? */
 		i += 6;
 	    s2 = desc_buf;
 	    while (i--) *s2++ = ' ';
-#ifdef HAS_TERMLIB
+#ifdef HAVE_TERMLIB
 	    if (use_standout)
 		sprintf(s2,"Summary: %s%s",tc_SO,s);
 	    else
@@ -216,7 +216,7 @@ bool_int trunc;		/* should it be truncated? */
 		i += 6;
 	    s2 = desc_buf;
 	    while (i--) *s2++ = ' ';
-#ifdef HAS_TERMLIB
+#ifdef HAVE_TERMLIB
 	    if (use_standout)
 		sprintf(s2,"Keys: %s%s",tc_SO,s);
 	    else
@@ -232,7 +232,7 @@ bool_int trunc;		/* should it be truncated? */
     } /* switch (line) */
     if (trunc)
 	desc_buf[s_desc_cols] = '\0';	/* make sure it's not too long */
-#ifdef HAS_TERMLIB
+#ifdef HAVE_TERMLIB
     if (use_standout)
 	strcat(desc_buf,tc_SE);	/* end standout mode */
 #endif

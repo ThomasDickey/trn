@@ -142,7 +142,7 @@ int status;
 #endif
     if (status < 0) {
 	sigset(SIGILL,SIG_DFL);
-#ifdef HAS_SIGBLOCK
+#ifdef HAVE_SIGBLOCK
 	sigsetmask(sigblock(0) & ~(sigmask(SIGILL) | sigmask(SIGIOT)));
 #endif
 	abort();
@@ -226,7 +226,7 @@ int signo;
     }
 #endif
     if (panic) {
-#ifdef HAS_SIGBLOCK
+#ifdef HAVE_SIGBLOCK
 	sigsetmask(sigblock(0) & ~(sigmask(SIGILL) | sigmask(SIGIOT)));
 #endif
 	abort();
@@ -303,7 +303,7 @@ int signo;
 #endif
 	fflush(stdout);
 	sigset(signo,SIG_DFL);	/* enable stop */
-#ifdef HAS_SIGBLOCK
+#ifdef HAVE_SIGBLOCK
 	sigsetmask(sigblock(0) & ~(1 << (signo-1)));
 #endif
 	kill(0,signo);		/* and do the stop */

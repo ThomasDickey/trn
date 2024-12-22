@@ -26,7 +26,7 @@ static char* day_name[] = {
     "Saturday"
 };
 
-#ifdef HAS_FTIME
+#ifdef HAVE_FTIME
 # ifndef TM_ZONE
 char tznm[16] = "";
 # endif
@@ -172,11 +172,11 @@ CONST struct tm* ts;
 	    sprintf(tmpbuf, "%d", ts->tm_year + 1900);
 	    break;
 	case 'Z':
-#if defined(HAS_GETTIMEOFDAY) || defined(HAS_FTIME)
+#if defined(HAVE_GETTIMEOFDAY) || defined(HAVE_FTIME)
 # ifdef TM_ZONE
 	    strcpy(tmpbuf, ts->tm_zone);
 # else
-#  ifdef HAS_GETTIMEOFDAY
+#  ifdef HAVE_GETTIMEOFDAY
 	    if (*tznm == '\0') {
 		char* timezone();
 		struct timeval tv;
@@ -189,8 +189,8 @@ CONST struct tm* ts;
 #  else
 	    strcpy(tmpbuf, ts->tm_name);
 #  endif
-# endif /* !HAS_GETTIMEOFDAY */
-#else /* !HAS_GETTIMEOFDAY && !HAS_FTIME */
+# endif /* !HAVE_GETTIMEOFDAY */
+#else /* !HAVE_GETTIMEOFDAY && !HAVE_FTIME */
 	    strcpy(tmpbuf, tzname[ts->tm_isdst]);
 #endif
 	    break;

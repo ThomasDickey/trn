@@ -22,7 +22,6 @@ EOF
 
 cat >$mytemp/mak_script <<"EOF"
 s/[[:space:]]*$//
-/# AUTOMATICALLY GENERATED/,/# WARNING/d
 /^#/d
 EOF
 

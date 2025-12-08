@@ -11,7 +11,7 @@ srcdir = @top_srcdir@
 prefix = @prefix@
 exec_prefix = @exec_prefix@
 
-VPATH = @VPATH@
+VPATH = $(srcdir)
 extra_cleanup = @EXTRA_CLEANUP@
 
 CC = @CC@
@@ -279,7 +279,7 @@ pro: config.h mkpro
 td: config.h mktd
 	./mktd
 
-Makefile: Makefile.in config.status # dependencies
+Makefile: Makefile.in config.status dependencies
 	/bin/sh ./config.status
 	@echo "The Makefile has changed -- please restart the make."
 	false # stop the make

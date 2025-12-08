@@ -9885,6 +9885,10 @@ TERM_LIB=
 
 FILEXP_PATH=/usr/share/trn4/filexp
 
+LDFLAGS="$LDFLAGS -Wl,-z,relro"
+
+LINKFLAGS=
+
 MANDIR=/usr/share/man/man1
 
 MANSECT=1
@@ -9972,7 +9976,7 @@ DEFS=-DHAVE_CONFIG_H
 : "${CONFIG_STATUS=./config.status}"
 ac_clean_files_save=$ac_clean_files
 ac_clean_files="$ac_clean_files $CONFIG_STATUS"
-{ echo "$as_me:9975: creating $CONFIG_STATUS" >&5
+{ echo "$as_me:9979: creating $CONFIG_STATUS" >&5
 echo "$as_me: creating $CONFIG_STATUS" >&6;}
 cat >"$CONFIG_STATUS" <<_ACEOF
 #! $SHELL
@@ -10150,7 +10154,7 @@ cat >>"$CONFIG_STATUS" <<\EOF
     echo "$ac_cs_version"; exit 0 ;;
   --he | --h)
     # Conflict between --help and --header
-    { { echo "$as_me:10153: error: ambiguous option: $1
+    { { echo "$as_me:10157: error: ambiguous option: $1
 Try \`$0 --help' for more information." >&5
 echo "$as_me: error: ambiguous option: $1
 Try \`$0 --help' for more information." >&2;}
@@ -10169,7 +10173,7 @@ Try \`$0 --help' for more information." >&2;}
     ac_need_defaults=false;;
 
   # This is an error.
-  -*) { { echo "$as_me:10172: error: unrecognized option: $1
+  -*) { { echo "$as_me:10176: error: unrecognized option: $1
 Try \`$0 --help' for more information." >&5
 echo "$as_me: error: unrecognized option: $1
 Try \`$0 --help' for more information." >&2;}
@@ -10206,7 +10210,7 @@ do
   # Handling of arguments.
   "Makefile" ) CONFIG_FILES="$CONFIG_FILES Makefile" ;;
   "config.h" ) CONFIG_HEADERS="$CONFIG_HEADERS config.h" ;;
-  *) { { echo "$as_me:10209: error: invalid argument: $ac_config_target" >&5
+  *) { { echo "$as_me:10213: error: invalid argument: $ac_config_target" >&5
 echo "$as_me: error: invalid argument: $ac_config_target" >&2;}
    { (exit 1); exit 1; }; };;
   esac
@@ -10355,6 +10359,7 @@ s,@NDIR_LIB@,$NDIR_LIB,;t t
 s,@JOBS_LIB@,$JOBS_LIB,;t t
 s,@TERM_LIB@,$TERM_LIB,;t t
 s,@FILEXP_PATH@,$FILEXP_PATH,;t t
+s,@LINKFLAGS@,$LINKFLAGS,;t t
 s,@MANDIR@,$MANDIR,;t t
 s,@MANSECT@,$MANSECT,;t t
 s,@EXTRA_CLEANUP@,$EXTRA_CLEANUP,;t t
@@ -10490,7 +10495,7 @@ done; }
   esac
 
   if test x"$ac_file" != x-; then
-    { echo "$as_me:10493: creating $ac_file" >&5
+    { echo "$as_me:10498: creating $ac_file" >&5
 echo "$as_me: creating $ac_file" >&6;}
     rm -f "$ac_file"
   fi
@@ -10508,7 +10513,7 @@ echo "$as_me: creating $ac_file" >&6;}
       -) echo "$tmp"/stdin ;;
       [\\/$]*)
          # Absolute (can't be DOS-style, as IFS=:)
-         test -f "$f" || { { echo "$as_me:10511: error: cannot find input file: $f" >&5
+         test -f "$f" || { { echo "$as_me:10516: error: cannot find input file: $f" >&5
 echo "$as_me: error: cannot find input file: $f" >&2;}
    { (exit 1); exit 1; }; }
          echo "$f";;
@@ -10521,7 +10526,7 @@ echo "$as_me: error: cannot find input file: $f" >&2;}
            echo "$srcdir/$f"
          else
            # /dev/null tree
-           { { echo "$as_me:10524: error: cannot find input file: $f" >&5
+           { { echo "$as_me:10529: error: cannot find input file: $f" >&5
 echo "$as_me: error: cannot find input file: $f" >&2;}
    { (exit 1); exit 1; }; }
          fi;;
@@ -10537,7 +10542,7 @@ cat >>"$CONFIG_STATUS" <<\EOF
       if test -n "$ac_seen"; then
         ac_used=`grep '@datarootdir@' "$ac_item"`
         if test -z "$ac_used"; then
-          { echo "$as_me:10540: WARNING: datarootdir was used implicitly but not set:
+          { echo "$as_me:10545: WARNING: datarootdir was used implicitly but not set:
 $ac_seen" >&5
 echo "$as_me: WARNING: datarootdir was used implicitly but not set:
 $ac_seen" >&2;}
@@ -10546,7 +10551,7 @@ $ac_seen" >&2;}
       fi
       ac_seen=`grep '${datarootdir}' "$ac_item"`
       if test -n "$ac_seen"; then
-        { echo "$as_me:10549: WARNING: datarootdir was used explicitly but not set:
+        { echo "$as_me:10554: WARNING: datarootdir was used explicitly but not set:
 $ac_seen" >&5
 echo "$as_me: WARNING: datarootdir was used explicitly but not set:
 $ac_seen" >&2;}
@@ -10591,7 +10596,7 @@ cat >>"$CONFIG_STATUS" <<\EOF
             ac_init=`$EGREP '[ 	]*'$ac_name'[ 	]*=' "$ac_file"`
             if test -z "$ac_init"; then
               ac_seen=`echo "$ac_seen" |sed -e 's,^,'"$ac_file"':,'`
-              { echo "$as_me:10594: WARNING: Variable $ac_name is used but was not set:
+              { echo "$as_me:10599: WARNING: Variable $ac_name is used but was not set:
 $ac_seen" >&5
 echo "$as_me: WARNING: Variable $ac_name is used but was not set:
 $ac_seen" >&2;}
@@ -10602,7 +10607,7 @@ $ac_seen" >&2;}
     $EGREP -n '@[A-Z_][A-Z_0-9]+@' "$ac_file" >>"$tmp"/out
     if test -s "$tmp"/out; then
       ac_seen=`sed -e 's,^,'"$ac_file"':,' < "$tmp"/out`
-      { echo "$as_me:10605: WARNING: Some variables may not be substituted:
+      { echo "$as_me:10610: WARNING: Some variables may not be substituted:
 $ac_seen" >&5
 echo "$as_me: WARNING: Some variables may not be substituted:
 $ac_seen" >&2;}
@@ -10612,6 +10617,10 @@ $ac_seen" >&2;}
   fi
   rm -f "$tmp"/out
 
+  # Run the commands associated with the file.
+  case "$ac_file" in
+    Makefile ) cat dependencies >> Makefile ;;
+  esac
 done
 EOF
 cat >>"$CONFIG_STATUS" <<\EOF
@@ -10651,7 +10660,7 @@ for ac_file in : $CONFIG_HEADERS; do test "x$ac_file" = x: && continue
   * )   ac_file_in=$ac_file.in ;;
   esac
 
-  test x"$ac_file" != x- && { echo "$as_me:10654: creating $ac_file" >&5
+  test x"$ac_file" != x- && { echo "$as_me:10663: creating $ac_file" >&5
 echo "$as_me: creating $ac_file" >&6;}
 
   # First look for the input files in the build tree, otherwise in the
@@ -10662,7 +10671,7 @@ echo "$as_me: creating $ac_file" >&6;}
       -) echo "$tmp"/stdin ;;
       [\\/$]*)
          # Absolute (can't be DOS-style, as IFS=:)
-         test -f "$f" || { { echo "$as_me:10665: error: cannot find input file: $f" >&5
+         test -f "$f" || { { echo "$as_me:10674: error: cannot find input file: $f" >&5
 echo "$as_me: error: cannot find input file: $f" >&2;}
    { (exit 1); exit 1; }; }
          echo $f;;
@@ -10675,7 +10684,7 @@ echo "$as_me: error: cannot find input file: $f" >&2;}
            echo "$srcdir/$f"
          else
            # /dev/null tree
-           { { echo "$as_me:10678: error: cannot find input file: $f" >&5
+           { { echo "$as_me:10687: error: cannot find input file: $f" >&5
 echo "$as_me: error: cannot find input file: $f" >&2;}
    { (exit 1); exit 1; }; }
          fi;;
@@ -10794,7 +10803,7 @@ cat >>"$CONFIG_STATUS" <<\EOF
   rm -f "$tmp"/in
   if test x"$ac_file" != x-; then
     if cmp -s "$ac_file" "$tmp/config.h" 2>/dev/null; then
-      { echo "$as_me:10797: $ac_file is unchanged" >&5
+      { echo "$as_me:10806: $ac_file is unchanged" >&5
 echo "$as_me: $ac_file is unchanged" >&6;}
     else
       ac_dir=`$as_expr X"$ac_file" : 'X\(.*[^/]\)//*[^/][^/]*/*$' \| \

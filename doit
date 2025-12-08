@@ -1,0 +1,38 @@
+#!/bin/bash
+
+filter_hdr() {
+	sed -E -f $mytemp/hdr_script < $1 >$mytemp/$2
+}
+
+filter_mak() {
+	sed -E -f $mytemp/mak_script < $1 >$mytemp/$2
+}
+
+mytemp=$(mktemp -d)
+trap "cd; rm -rf $mytemp" EXIT ERR
+
+cat >$mytemp/hdr_script <<"EOF"
+s/HAVE_/HAS_/
+/\/\*[[:space:]]*#(undef|define)/d
+/^#define/s,/\*.*\*/,,
+s/\/\*\*\///g
+s/[[:space:]]*$//
+s/^(#define[[:space:]][[:alnum:]_]+)$/\1 1/
+EOF
+
+cat >$mytemp/mak_script <<"EOF"
+s/[[:space:]]*$//
+/# AUTOMATICALLY GENERATED/,/# WARNING/d
+/^#/d
+EOF
+
+git clean -f -x -d
+autoconf-252 || exit
+YACC=byacc cfg-normal --prefix=/usr || exit
+
+filter_hdr config.h update
+filter_hdr ../trn-4.0-test77/config.h origin
+
+filter_mak Makefile update
+filter_mak ../trn-4.0-test77/Makefile origin
+( cd $mytemp && diff -u -b -B origin update )

@@ -1,0 +1,199 @@
+dnl
+AC_PREREQ(2.52.20210509)
+AC_INIT
+AC_CONFIG_SRCDIR([trn.c])
+AC_CONFIG_HEADER(config.h)
+CF_CHECK_CACHE
+
+###	checks for alternative programs
+
+CF_PROG_CC
+AC_C_INLINE
+AC_PROG_CPP
+CF_PROG_INSTALL
+AC_ARG_PROGRAM
+CF_PROG_LINT
+CF_PROG_YACC
+
+###	checks for compiler characteristics
+CF_XOPEN_SOURCE(700)
+CF_SIGWINCH
+
+###	checks for header files
+AC_CHECK_DECL(exit)
+AC_CHECK_HEADERS( \
+sys/ptem.h \
+term.h \
+termios.h \
+)
+
+###	checks for typedefs
+AC_CHECK_TYPE(time_t, long)
+
+###	checks for library functions
+AC_CHECK_FUNCS( \
+	ftime \
+	getcwd \
+	getdomainname \
+	gethostname \
+	getpwent \
+	gettimeofday \
+	getwd \
+	memcmp \
+	memcpy \
+	memset \
+	mkdir \
+	rename \
+	sigblock \
+	sighold \
+	strcasecmp \
+	strchr \
+	strstr )
+CF_FUNC_GETTIME
+CF_FUNC_STRFTIME
+CF_SETITIMER
+
+CF_HELP_MESSAGE(Compile/Install Options:)
+CF_FUNC_TGETENT
+
+AC_SUBST(SINSTALL_OPTS)
+
+###	checks for external data
+CF_ERRNO
+
+###	checks for system services and user specified options
+
+AC_PATH_XTRA
+CF_POSIX_WAIT
+CF_SYSV
+CF_SVR4
+
+###############################################################################
+CF_HELP_MESSAGE(Optional Features:)
+
+###############################################################################
+CF_HELP_MESSAGE(Testing/development Options:)
+
+CF_DISABLE_LEAKS
+CF_DISABLE_ECHO
+CF_ENABLE_WARNINGS
+CF_MAKE_TAGS
+
+###############################################################################
+CF_HELP_MESSAGE(Hard-coded/incomplete Options:)
+AC_DEFINE(ACTIVE, "remote")
+AC_DEFINE(ACTIVE_TIMES, "remote")
+AC_DEFINE(BERKNAMES, 1)
+AC_DEFINE(CALL_INEWS, "/usr/lib/trn4/inews -h <%h")
+AC_DEFINE(DEFEDITOR, "/usr/bin/editor")
+AC_DEFINE(Direntry_t, struct dirent)
+AC_DEFINE(EXTRAINEWS, "/usr/bin/inews")
+AC_DEFINE(GROUPDESC, "")
+AC_DEFINE(HASATTRIBUTE,1)
+AC_DEFINE(HAVE_LOCAL_SPOOL,1)
+AC_DEFINE(HAVE_TERMLIB,1)
+AC_DEFINE(HOSTBITS, 2)
+AC_DEFINE(INSTALLPREFIX, "/usr")
+AC_DEFINE(INTERNET, 1)
+AC_DEFINE(I_DIRENT,1)
+AC_DEFINE(I_STDLIB,1)
+AC_DEFINE(I_STRING,1)
+AC_DEFINE(I_SYS_DIR,1)
+AC_DEFINE(I_SYS_IOCTL,/**/)
+AC_DEFINE(I_SYS_TIME,1)
+AC_DEFINE(I_SYS_WAIT,1)
+AC_DEFINE(I_TERMIOS,1)
+AC_DEFINE(I_TIME,1)
+AC_DEFINE(I_UNISTD,1)
+AC_DEFINE(I_UTIME,1)
+AC_DEFINE(MAILFILE, "/var/mail/%L")
+AC_DEFINE(MAILPOSTER, "/usr/lib/trn4/Rnmail -h %h")
+AC_DEFINE(MBOXCHAR, 'F')
+AC_DEFINE(MIMECAP, "%./.mimecap:~/.mailcap:/etc/mailcap")
+AC_DEFINE(NEWSLIB, "/var/lib/news")
+AC_DEFINE(NEWSPOSTER, "/usr/lib/trn4/Pnews -h %h")
+AC_DEFINE(NEWSSPOOL, "none")
+AC_DEFINE(NEWS_ADMIN, "news")
+AC_DEFINE(NORMSIG,1)
+AC_DEFINE(ORGNAME, "/etc/news/organization")
+AC_DEFINE(OVERVIEW_DIR,"remote")
+AC_DEFINE(OVERVIEW_FMT,"none")
+AC_DEFINE(PASSNAMES, 1)
+AC_DEFINE(PHOSTCMD, "/usr/bin/hostname")
+AC_DEFINE(PHOSTNAME, "/etc/mailname")
+AC_DEFINE(PREFSHELL, "/bin/sh")
+AC_DEFINE(PRIVLIB, "/usr/share/trn4")
+AC_DEFINE(ROOTID, 0)
+AC_DEFINE(SCAN,/**/)
+AC_DEFINE(SCORE,/**/)
+AC_DEFINE(SELECT_INIT, TRUE)
+AC_DEFINE(SERVER_NAME, "/etc/news/server")
+AC_DEFINE(SUBSCRIPTIONS, "")
+AC_DEFINE(SUPPORT_NNTP,1)
+AC_DEFINE(SUPPORT_XTHREAD,1)
+AC_DEFINE(Signal_t, void)
+AC_DEFINE(THREAD_DIR,"remote")
+AC_DEFINE(THREAD_INIT, FALSE)
+AC_DEFINE(USE_GENAUTH,1)
+
+dnl optionally comment-out chunks of makefile:
+
+MAKE_INEWS=""
+AC_SUBST(MAKE_INEWS)
+
+MAKE_MSDOS="#"
+AC_SUBST(MAKE_MSDOS)
+
+MAKE_NDIR="#"
+AC_SUBST(MAKE_NDIR)
+
+MAKE_NNTP=""
+AC_SUBST(MAKE_NNTP)
+
+MAKE_STRFTIME="#"
+AC_SUBST(MAKE_STRFTIME)
+
+TK_INCS=
+AC_SUBST(TK_INCS)
+
+TK_LIBS=
+AC_SUBST(TK_LIBS)
+
+TK_LDFLAGS=
+AC_SUBST(TK_LDFLAGS)
+
+NNTP_FLAGS=
+AC_SUBST(NNTP_FLAGS)
+
+RN_BIN=/usr/lib/trn4
+AC_SUBST(RN_BIN)
+
+RN_LIB=/usr/share/trn4
+AC_SUBST(RN_LIB)
+
+INEWS_BIN=/usr/lib/trn4
+AC_SUBST(INEWS_BIN)
+
+NDIR_LIB=
+AC_SUBST(NDIR_LIB)
+
+JOBS_LIB=
+AC_SUBST(JOBS_LIB)
+
+TERM_LIB=
+AC_SUBST(TERM_LIB)
+
+FILEXP_PATH=/usr/share/trn4/filexp
+AC_SUBST(FILEXP_PATH)
+
+MANDIR=/usr/share/man/man1
+AC_SUBST(MANDIR)
+
+MANSECT=1
+AC_SUBST(MANSECT)
+
+EXTRA_CLEANUP=
+AC_SUBST(EXTRA_CLEANUP)
+
+AC_CONFIG_FILES([Makefile])
+AC_OUTPUT

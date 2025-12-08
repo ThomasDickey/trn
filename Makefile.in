@@ -1,0 +1,302 @@
+# Makefile.in
+#
+# This software is copyrighted as detailed in the LICENSE file.
+# 
+# optional defines you can add to the CFLAGS
+#    -DDEBUG                      compile in support for the -D option
+#    -DNO_LISTGROUP               avoids attempting to use LISTGROUP
+#    -DREPLYTO_POSTER_CHECKING    makes -p also check Reply-To (slow)
+
+srcdir = @top_srcdir@
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+
+VPATH = @VPATH@
+extra_cleanup = @EXTRA_CLEANUP@
+
+CC = @CC@
+@MAKE_MSDOS@LINK = tlink
+TOUCH = touch
+YACC = @YACC@
+LINT = @LINT@
+lintflags = @LINT_OPTS@
+
+CFLAGS = @CFLAGS@ @EXTRA_CFLAGS@ @CPPFLAGS@
+TKINC = @TK_INCS@
+LDFLAGS = @LDFLAGS@
+TKLDFLAGS = @TK_LDFLAGS@
+@MAKE_MSDOS@LINKFLAGS = @LINKFLAGS@
+
+exe = @EXEEXT@
+@MAKE_MSDOS@exe = .exe
+o = @OBJEXT@
+@MAKE_MSDOS@o = obj
+
+rnbin = @RN_BIN@
+rnlib = @RN_LIB@
+@MAKE_INEWS@inewsbin = @INEWS_BIN@
+mansrc = @MANDIR@
+manext = @MANSECT@
+@MAKE_NNTP@NNTPFLAGS = @NNTP_FLAGS@
+@MAKE_NDIR@ndirc = ndir.c
+@MAKE_NDIR@ndiro = ndir$(o)
+@MAKE_STRFTIME@strftimec = strftime.c
+@MAKE_STRFTIME@strftimeo = strftime.$(o)
+installfilexp = @FILEXP_PATH@
+
+libs = @NDIR_LIB@ @TERM_LIB@ @JOBS_LIB@ -lm @LIBS@
+tklibs = @TK_LIBS@
+public_backup = trn$(exe) trn-artchk$(exe) $(nntpexe) $(msdosexe)
+public_diff = Pnews Rnmail
+public = $(public_backup) $(public_diff)
+private_preserve = access.def
+private_diff = newsnews Speller Pnews.header
+private_blast = norm.saver mbox.saver makedir filexp
+private = $(private_preserve) $(private_diff) $(private_blast)
+util = makedepend mkpro mktd HelpFiles/config/environment
+manpages = trn.1 Pnews.1 Rnmail.1
+@MAKE_INEWS@inewsexe=inews$(exe)
+@MAKE_NNTP@nntpexe=nntplist$(exe)
+@MAKE_NNTP@nntpsrc=nntpinit.c nntpclient.c nntpauth.c nntp.c
+@MAKE_NNTP@nntpobj1=nntpinit.$(o) nntpclient.$(o) nntpauth.$(o)
+@MAKE_NNTP@nntpobj2=nntp.$(o)
+@MAKE_MSDOS@msdosexe=winsock.dll
+@MAKE_MSDOS@msdossrc=popen.c
+@MAKE_MSDOS@msdosobj=popen.$(o)
+
+h1 = addng.h art.h artio.h artsrch.h autosub.h backpage.h bits.h cache.h
+h2 = charsubst.h datasrc.h common.h decode.h env.h final.h hash.h head.h
+h3 = help.h init.h intrp.h kfile.h last.h list.h mime.h ng.h ngdata.h ngsrch.h
+h4 = ngstuff.h only.h opt.h rcln.h rcstuff.h respond.h rthread.h rt-mt.h
+h5 = rt-ov.h rt-page.h rt-process.h rt-select.h rt-util.h rt-wumpus.h
+h6 = search.h sw.h term.h trn.h util.h util2.h wildmat.h color.h filter.h
+h7a = scan.h scmd.h sdisp.h smisc.h sorder.h spage.h
+h7b = scanart.h samain.h samisc.h sadisp.h sacmd.h sadesc.h sathread.h
+h7c = url.h mempool.h univ.h
+h7all = $(h7a) $(h7b) $(h7c)
+h8 = score.h scorefile.h scoresave.h score-easy.h
+h9 = tkstuff.h tktree.h
+
+h = $(h1) $(h2) $(h3) $(h4) $(h5) $(h6) $(h7all) $(h8) $(h9)
+
+c1 = addng.c art.c artio.c artsrch.c autosub.c backpage.c bits.c cache.c
+c2 = charsubst.c datasrc.c decode.c edit_dist.c env.c final.c hash.c head.c
+c3 = help.c init.c intrp.c kfile.c last.c list.c $(ndirc) mime.c ng.c ngdata.c
+c4 = ngsrch.c ngstuff.c only.c opt.c rcln.c rcstuff.c respond.c rthread.c
+c5 = rt-mt.c rt-ov.c rt-process.c rt-page.c rt-select.c rt-util.c rt-wumpus.c
+c6 = search.c $(strftimec) sw.c term.c trn.c util.c util2.c
+c7 = uudecode.c $(nntpsrc) $(msdossrc) wildmat.c color.c filter.c
+c8a = scan.c scmd.c sdisp.c smisc.c sorder.c spage.c
+c8b = scanart.c samain.c samisc.c sadisp.c sacmd.c sadesc.c sathread.c
+c8c = url.c mempool.c univ.c
+c8all = $(c8a) $(c8b) $(c8c)
+c9 = score.c scorefile.c scoresave.c score-easy.c
+c10 = tkstuff.c tktree.c
+c = $(c1) $(c2) $(c3) $(c4) $(c5) $(c6) $(c7) $(c8all) $(c9) $(c10)
+
+obj1 = addng.$(o) art.$(o) artio.$(o) artsrch.$(o) autosub.$(o) backpage.$(o)
+obj2 = bits.$(o) cache.$(o) charsubst.$(o) datasrc.$(o) decode.$(o)
+obj3 = edit_dist.$(o) env.$(o) final.$(o) hash.$(o) head.$(o) help.$(o)
+obj4 = init.$(o) intrp.$(o) kfile.$(o) last.$(o) list.$(o) $(ndiro) mime.$(o) ng.$(o)
+obj5 = ngdata.$(o) ngsrch.$(o) ngstuff.$(o) only.$(o) opt.$(o) rcln.$(o)
+obj6 = rcstuff.$(o) respond.$(o) rthread.$(o) rt-mt.$(o) rt-ov.$(o)
+obj7 = rt-process.$(o) rt-page.$(o) rt-select.$(o) rt-util.$(o) rt-wumpus.$(o)
+obj8 = search.$(o) $(strftimeo) sw.$(o) term.$(o) trn.$(o) util.$(o) util2.$(o)
+obj9 = uudecode.$(o) parsedate.$(o) $(nntpobj1) $(nntpobj2)
+obj10= $(msdosobj) wildmat.$(o) color.$(o) filter.$(o)
+obj11a = scan.$(o) scmd.$(o) sdisp.$(o) smisc.$(o) sorder.$(o) spage.$(o)
+obj11b = scanart.$(o) samain.$(o) samisc.$(o) sadisp.$(o) sacmd.$(o) sadesc.$(o) sathread.$(o)
+obj11c = url.$(o) mempool.$(o) univ.$(o)
+obj11all = $(obj11a) $(obj11b) $(obj11c)
+obj12 = score.$(o) scorefile.$(o) scoresave.$(o) score-easy.$(o)
+obj13 = tkstuff.$(o) tktree.$(o)
+
+obj = $(obj1) $(obj2) $(obj3) $(obj4) $(obj5) $(obj6) $(obj7) $(obj8) \
+	$(obj9) $(obj10) $(obj11all) $(obj12) $(obj13)
+
+addedbymake = $(public) $(inewsexe) $(private) $(util)\
+	Makefile.old config.h parsedate.c cppstdin myinstall all
+
+# grrr
+SHELL = /bin/sh
+
+.c.$(o):
+	$(CC) -c $(CFLAGS) $<
+
+all: Makefile $(public) $(inewsexe) $(private) $(util) Policy.sh
+	$(TOUCH) all
+@MAKE_MSDOS@
+@MAKE_MSDOS@trn: trn.exe
+
+trn$(exe): $(obj)
+@MAKE_MSDOS@	$(LINK) $(LINKFLAGS) @trn.lnk
+@MAKE_MSDOS@
+@MAKE_MSDOS@junk1:
+	$(CC) $(LDFLAGS) $(TKLDFLAGS) $(obj) $(tklibs) $(libs) -o trn$(exe)
+@MAKE_NNTP@
+@MAKE_NNTP@nntpinit.$(o): nntpinit.c
+@MAKE_NNTP@	$(CC) -c $(CFLAGS) $(NNTPFLAGS) $<
+@MAKE_NNTP@@MAKE_MSDOS@
+@MAKE_NNTP@@MAKE_MSDOS@nntplist: nntplist.exe
+@MAKE_NNTP@
+@MAKE_NNTP@nntplistobjs = nntplist.$(o) $(nntpobj1) util2.$(o) util3.$(o) \
+@MAKE_NNTP@	wildmat.$(o)
+@MAKE_NNTP@
+@MAKE_NNTP@nntplist$(exe): $(nntplistobjs)
+@MAKE_NNTP@@MAKE_MSDOS@	$(LINK) $(LINKFLAGS) @nntplist.lnk
+@MAKE_NNTP@@MAKE_MSDOS@
+@MAKE_NNTP@@MAKE_MSDOS@junk2:
+@MAKE_NNTP@	$(CC) $(LDFLAGS) $(nntplistobjs) -o nntplist$(exe) $(libs)
+@MAKE_INEWS@@MAKE_MSDOS@
+@MAKE_INEWS@@MAKE_MSDOS@inews: inews.exe
+@MAKE_INEWS@
+@MAKE_INEWS@inewsobjs = inews.$(o) $(nntpobj1) env.$(o) util2.$(o) util3.$(o)
+@MAKE_INEWS@
+@MAKE_INEWS@inews$(exe): $(inewsobjs)
+@MAKE_INEWS@@MAKE_MSDOS@	$(LINK) $(LINKFLAGS) @inews.lnk
+@MAKE_INEWS@@MAKE_MSDOS@
+@MAKE_INEWS@@MAKE_MSDOS@junk3:
+@MAKE_INEWS@	$(CC) $(LDFLAGS) $(inewsobjs) -o inews$(exe) $(libs)
+
+@MAKE_MSDOS@trn-artchk: trn-artchk.exe
+@MAKE_MSDOS@
+trnchkobjs = trn-artchk.$(o) $(nntpobj1) util2.$(o) util3.$(o)
+
+trn-artchk$(exe): $(trnchkobjs)
+@MAKE_MSDOS@	$(LINK) $(LINKFLAGS) @trn-artchk.lnk
+@MAKE_MSDOS@
+@MAKE_MSDOS@junk4:
+	$(CC) $(LDFLAGS) $(trnchkobjs) -o trn-artchk$(exe) $(libs)
+@MAKE_MSDOS@
+@MAKE_MSDOS@winsock.dll: winsock.c winsock.def
+@MAKE_MSDOS@	$(CC) -c -WXDE -ml -w-par winsock.c
+@MAKE_MSDOS@	$(LINK) /c -v -Twd -Lc:\bc4\lib @winsock.lnk
+
+tkstuff.o: tkstuff.c
+	$(CC) -c $(CFLAGS) $(TKINC) $<
+
+tktree.o: tktree.c
+	$(CC) -c $(CFLAGS) $(TKINC) $<
+
+parsedate.c: parsedate.y
+	@echo 'Expect 6 shift/reduce conflicts'
+	$(YACC) $(srcdir)/parsedate.y
+	mv -f y.tab.c parsedate.c
+@MAKE_MSDOS@
+@MAKE_MSDOS@parsedate.$(o): parsedate.c
+@MAKE_MSDOS@	$(CC) -c $(CFLAGS) -w- $<
+@MAKE_STRFTIME@
+@MAKE_STRFTIME@strftime.$(o): strftime.c
+@MAKE_STRFTIME@	$(CC) -c $(CFLAGS) strftime.c
+
+@MAKE_MSDOS@unipatch: unipatch.exe
+@MAKE_MSDOS@
+unipatch$(exe): support/unipatch.$(o)
+@MAKE_MSDOS@	$(CC) $(LDFLAGS) support/unipatch.$(o)
+@MAKE_MSDOS@
+@MAKE_MSDOS@junk5:
+	$(CC) $(LDFLAGS) support/unipatch.$(o) -o unipatch$(exe)
+
+Pnews.header: Pnews
+
+# if a .h file depends on another .h file...
+$(h):
+	-$(TOUCH) $@
+
+install: $(public) $(inewsexe) $(private) $(manpages) myinstall
+# won't work with csh
+	export PATH || false # stop the make unless we are compatible
+	- ./makedir `./filexp $(rnbin)`
+	./myinstall -sox `./filexp $(rnbin)` $(public_backup)
+	./myinstall -dox `./filexp $(rnbin)` $(public_diff)
+	- if test $(installfilexp) = Rnfilexp; then\
+ ./myinstall -xf Rnfilexp `./filexp $(rnbin)` ./filexp; fi
+	- ./makedir `./filexp $(rnlib)`
+	- chmod o+r `./filexp $(rnlib)`
+@MAKE_INEWS@	./myinstall -sox `./filexp $(inewsbin)` inews$(exe)
+	./myinstall -x   `./filexp $(rnlib)`    $(private_blast)
+	- if test "X$(mansrc)" != X -a "X`pwd`" != X`./filexp $(mansrc)`; then\
+  ./makedir `./filexp $(mansrc)`;\
+  for page in $(manpages); do\
+   page=`basename $$page`;\
+   dest=$(mansrc)/`basename $$page .1`.$(manext);\
+   rm -f $$dest; cp $(srcdir)/$$page $$dest; chmod 444 $$dest;\
+  done;\
+ fi
+	./myinstall -dor `./filexp $(rnlib)` $(private_diff)
+	./myinstall -dnr `./filexp $(rnlib)` $(srcdir)/INIT $(private_preserve)
+	./myinstall -oR `./filexp $(rnlib)` `pwd`/HelpFiles
+	@echo ' '
+	@echo 'Use "make installclean" to remove any .old or .new files that'
+	@echo 'were just created, but only after you are sure that the files'
+	@echo 'contain no interesting changes and/or no one is running the'
+	@echo 'old executables.'
+
+installclean:
+	- (cd `./filexp $(rnbin)` ; for file in $(public) $(private_diff) ; do\
+  rm -f $${file}.old;\
+ done)
+	- (cd `./filexp $(rnlib)` ; for file in HelpFiles ; do\
+  rm -rf $${file}.old;\
+ done)
+	- (cd `./filexp $(rnlib)` ; for file in INIT $(private_preserve) ; do\
+  rm -f $${file}.new;\
+ done)
+@MAKE_INEWS@	- (cd `./filexp $(inewsbin)` ; rm -f inews$(exe).old)
+
+clean:
+	@echo 'Use "make realclean" to also remove the Makefile.'
+	@echo 'Use "make spotless" to even remove config.sh, Policy.sh, and .config.'
+	rm -rf UU $(extra_cleanup)
+	rm -f *.$(o) core $(addedbymake)
+
+realclean:
+	@echo 'You can use "Configure -S" to reverse this.'
+	rm -rf UU
+	rm -f *.$(o) core $(addedbymake) Makefile
+
+spotless:
+	rm -rf UU .config
+	rm -f *.$(o) core $(addedbymake) Makefile config.sh Policy.sh
+
+# The following lint has practically everything turned on.  Unfortunately,
+# you have to wade through a lot of mumbo jumbo that can't be suppressed.
+# If the source file has a /*NOSTRICT*/ somewhere, ignore the lint message
+# for that spot.
+
+lint: $(c) parsedate.c
+	$(LINT) $(lintflags) $(defs) $? > trn.fuzz 2>&1
+
+sabertrn: $(c) parsedate.c
+	#load $(c) parsedate.c $(libs)
+
+depend: config.h Makefile makedepend
+	./makedepend
+
+pro: config.h mkpro
+	./mkpro
+
+td: config.h mktd
+	./mktd
+
+Makefile: Makefile.in config.status # dependencies
+	/bin/sh ./config.status
+	@echo "The Makefile has changed -- please restart the make."
+	false # stop the make
+
+Pnews: patchlevel.h
+newsnews: patchlevel.h
+
+tar: MANIFEST patchlevel.h
+	export PATH || false # stop the make unless we are compatible
+	@(ver=trn-`awk '{print $$4}' $(srcdir)/patchlevel.h` ; \
+	 cd $(srcdir)/.. ; \
+	 echo Creating $$ver.tar.gz ; \
+	 ln -s trn4 $$ver ; \
+	 tar cvzf $$ver.tar.gz \
+		`ls -1d trn4/hints/* | fgrep -v /CVS | \
+		 cat trn4/MANIFEST - | \
+		 sed -e "s:^\(trn4/\)*\([^ 	]*\).*:$$ver/\2:"` ; \
+	 rm $$ver )
+
+# AUTOMATICALLY GENERATED MAKE DEPENDENCIES--PUT NOTHING BELOW THIS LINE

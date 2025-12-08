@@ -9885,7 +9885,7 @@ TERM_LIB=
 
 FILEXP_PATH=/usr/share/trn4/filexp
 
-LDFLAGS="$LDFLAGS -Wl,-z,relro"
+LDFLAGS="-Wl,-z,relro"
 
 LINKFLAGS=
 
@@ -10619,7 +10619,9 @@ $ac_seen" >&2;}
 
   # Run the commands associated with the file.
   case "$ac_file" in
-    Makefile ) cat dependencies >> Makefile ;;
+    Makefile )
+grep -F -v ".SH" dependencies >> Makefile
+ ;;
   esac
 done
 EOF
@@ -10660,7 +10662,7 @@ for ac_file in : $CONFIG_HEADERS; do test "x$ac_file" = x: && continue
   * )   ac_file_in=$ac_file.in ;;
   esac
 
-  test x"$ac_file" != x- && { echo "$as_me:10663: creating $ac_file" >&5
+  test x"$ac_file" != x- && { echo "$as_me:10665: creating $ac_file" >&5
 echo "$as_me: creating $ac_file" >&6;}
 
   # First look for the input files in the build tree, otherwise in the
@@ -10671,7 +10673,7 @@ echo "$as_me: creating $ac_file" >&6;}
       -) echo "$tmp"/stdin ;;
       [\\/$]*)
          # Absolute (can't be DOS-style, as IFS=:)
-         test -f "$f" || { { echo "$as_me:10674: error: cannot find input file: $f" >&5
+         test -f "$f" || { { echo "$as_me:10676: error: cannot find input file: $f" >&5
 echo "$as_me: error: cannot find input file: $f" >&2;}
    { (exit 1); exit 1; }; }
          echo $f;;
@@ -10684,7 +10686,7 @@ echo "$as_me: error: cannot find input file: $f" >&2;}
            echo "$srcdir/$f"
          else
            # /dev/null tree
-           { { echo "$as_me:10687: error: cannot find input file: $f" >&5
+           { { echo "$as_me:10689: error: cannot find input file: $f" >&5
 echo "$as_me: error: cannot find input file: $f" >&2;}
    { (exit 1); exit 1; }; }
          fi;;
@@ -10803,7 +10805,7 @@ cat >>"$CONFIG_STATUS" <<\EOF
   rm -f "$tmp"/in
   if test x"$ac_file" != x-; then
     if cmp -s "$ac_file" "$tmp/config.h" 2>/dev/null; then
-      { echo "$as_me:10806: $ac_file is unchanged" >&5
+      { echo "$as_me:10808: $ac_file is unchanged" >&5
 echo "$as_me: $ac_file is unchanged" >&6;}
     else
       ac_dir=`$as_expr X"$ac_file" : 'X\(.*[^/]\)//*[^/][^/]*/*$' \| \

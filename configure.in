@@ -201,5 +201,7 @@ AC_SUBST(MANSECT)
 EXTRA_CLEANUP=
 AC_SUBST(EXTRA_CLEANUP)
 
-AC_CONFIG_FILES([Makefile],[cat dependencies >> Makefile])
+AC_CONFIG_FILES([Makefile],[
+grep -F -v ".SH" dependencies >> Makefile
+])
 AC_OUTPUT

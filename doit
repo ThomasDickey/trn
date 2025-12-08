@@ -21,17 +21,22 @@ s/^(#define[[:space:]][[:alnum:]_]+)$/\1 1/
 EOF
 
 cat >$mytemp/mak_script <<"EOF"
+/;[[:space:]]*\/bin\/sh[[:space:]]+$(srcdir)\/[[:alnum:]_]+\.SH/s,^,#,
 s/[[:space:]]*$//
 /^#/d
 EOF
 
 git clean -f -x -d
 autoconf-252 || exit
-YACC=byacc cfg-normal --prefix=/usr || exit
+YACC=byacc ./configure --prefix=/usr || exit
 
 filter_hdr config.h update
 filter_hdr ../trn-4.0-test77/config.h origin
+( cd $mytemp && diff -u -b -B origin update || echo "** ignored..." )
 
 filter_mak Makefile update
 filter_mak ../trn-4.0-test77/Makefile origin
-( cd $mytemp && diff -u -b -B origin update )
+( cd $mytemp && diff -u -b -B origin update || echo "** ignored..." )
+
+pwd
+make -n -k

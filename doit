@@ -53,6 +53,7 @@ YACC=byacc ./configure --prefix=/usr || exit
 do_filter filter_hdr config.h
 do_filter filter_mak Makefile
 do_filter filter_shl Rnmail
+do_filter filter_shl access.def
 
 pwd
 make -n -k

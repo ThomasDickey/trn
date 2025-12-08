@@ -1,11 +1,24 @@
 #!/bin/bash
 
 filter_hdr() {
+	echo "** filtering $1"
 	sed -E -f $mytemp/hdr_script < $1 >$mytemp/$2
 }
 
 filter_mak() {
+	echo "** filtering $1"
 	sed -E -f $mytemp/mak_script < $1 >$mytemp/$2
+}
+
+filter_shl() {
+	echo "** filtering $1"
+	sed -E -f $mytemp/shl_script < $1 >$mytemp/$2
+}
+
+do_filter() {
+	$1 $2 update
+	$1 ../trn-4.0-test77/$2 origin
+	( cd $mytemp && diff -u -b -B origin update || echo "** ignored..." )
 }
 
 mytemp=$(mktemp -d)
@@ -26,17 +39,20 @@ s/[[:space:]]*$//
 /^#/d
 EOF
 
+cat >$mytemp/shl_script <<"EOF"
+s/\$(grep|cp|rm|sleep|test|who|sed|echo|cat)/\1/g
+s/[[:space:]]*$//
+/^$/d
+/^#/d
+EOF
+
 git clean -f -x -d
 autoconf-252 || exit
 YACC=byacc ./configure --prefix=/usr || exit
 
-filter_hdr config.h update
-filter_hdr ../trn-4.0-test77/config.h origin
-( cd $mytemp && diff -u -b -B origin update || echo "** ignored..." )
-
-filter_mak Makefile update
-filter_mak ../trn-4.0-test77/Makefile origin
-( cd $mytemp && diff -u -b -B origin update || echo "** ignored..." )
+do_filter filter_hdr config.h
+do_filter filter_mak Makefile
+do_filter filter_shl Rnmail
 
 pwd
 make -n -k

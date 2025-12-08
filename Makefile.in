@@ -123,7 +123,7 @@ SHELL = /bin/sh
 .c.$(o):
 	$(CC) -c $(CFLAGS) $<
 
-all: Makefile $(public) $(inewsexe) $(private) $(util) Policy.sh
+all: Makefile $(public) $(inewsexe) $(private) Policy.sh
 	$(TOUCH) all
 @MAKE_MSDOS@
 @MAKE_MSDOS@trn: trn.exe

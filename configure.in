@@ -138,6 +138,9 @@ AC_DEFINE(USE_GENAUTH,1)
 
 dnl optionally comment-out chunks of makefile:
 
+DEFEDITOR="/usr/bin/editor"
+AC_SUBST(DEFEDITOR)
+
 MAKE_INEWS=""
 AC_SUBST(MAKE_INEWS)
 
@@ -198,10 +201,31 @@ AC_SUBST(MANDIR)
 MANSECT=1
 AC_SUBST(MANSECT)
 
+NAMETYPE=bsd
+AC_SUBST(NAMETYPE)
+
+ORGNAME=/etc/news/organization
+AC_SUBST(ORGNAME)
+
+PAGER=/usr/bin/pager
+AC_SUBST(PAGER)
+
+PGPCOMMAND=pgp
+AC_SUBST(PGPCOMMAND)
+
+PORTABLE=undef
+AC_SUBST(PORTABLE)
+
+RNMAILER=/usr/sbin/sendmail
+AC_SUBST(RNMAILER)
+
 EXTRA_CLEANUP=
 AC_SUBST(EXTRA_CLEANUP)
 
-AC_CONFIG_FILES([Makefile],[
-grep -F -v ".SH" dependencies >> Makefile
+AC_CONFIG_FILES([Makefile Rnmail],[
+if ! grep "WARNING" Makefile > /dev/null
+then
+	grep -F -v ".SH" dependencies >> Makefile
+fi
 ])
 AC_OUTPUT

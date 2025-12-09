@@ -20,6 +20,7 @@
 #include <stdio.h>
 #include <sys/types.h>
 #include <ctype.h>
+#include <string.h>
 #include "config.h"
 /*#include "config2.h"*/
 #include <time.h>

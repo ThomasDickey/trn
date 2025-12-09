@@ -32,8 +32,8 @@ exe = @EXEEXT@
 o = @OBJEXT@
 @MAKE_MSDOS@o = obj
 
-rnbin = @RN_BIN@
-rnlib = @RN_LIB@
+rnbin = @PRIVBIN@
+rnlib = @PRIVLIB@
 @MAKE_INEWS@inewsbin = @INEWS_BIN@
 mansrc = @MANDIR@
 manext = @MANSECT@

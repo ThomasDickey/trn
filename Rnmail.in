@@ -22,8 +22,8 @@ pager="${PAGER-@PAGER@}"
 defeditor="@DEFEDITOR@"
 # where the non-publics are
 case @PORTABLE@ in
-define)  rnlib=`@FILEXP_PATH@ @RN_LIB@` ;;
-undef)   rnlib="@RN_LIB@" ;;
+define)  rnlib=`@FILEXP_PATH@ @PRIVLIB@` ;;
+undef)   rnlib="@PRIVLIB@" ;;
 esac
 # how not to do a newline with echo
 n="-n"

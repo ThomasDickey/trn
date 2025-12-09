@@ -81,65 +81,116 @@ CF_MAKE_TAGS
 
 ###############################################################################
 CF_HELP_MESSAGE(Hard-coded/incomplete Options:)
-AC_DEFINE(ACTIVE, "remote")
-AC_DEFINE(ACTIVE_TIMES, "remote")
-AC_DEFINE(BERKNAMES, 1)
-AC_DEFINE(CALL_INEWS, "/usr/lib/trn4/inews -h <%h")
-AC_DEFINE(DEFEDITOR, "/usr/bin/editor")
-AC_DEFINE(Direntry_t, struct dirent)
-AC_DEFINE(EXTRAINEWS, "/usr/bin/inews")
-AC_DEFINE(GROUPDESC, "")
-AC_DEFINE(HASATTRIBUTE,1)
-AC_DEFINE(HAVE_LOCAL_SPOOL,1)
-AC_DEFINE(HAVE_TERMLIB,1)
-AC_DEFINE(HOSTBITS, 2)
-AC_DEFINE(INSTALLPREFIX, "/usr")
-AC_DEFINE(INTERNET, 1)
-AC_DEFINE(I_DIRENT,1)
-AC_DEFINE(I_STDLIB,1)
-AC_DEFINE(I_STRING,1)
-AC_DEFINE(I_SYS_DIR,1)
-AC_DEFINE(I_SYS_IOCTL,/**/)
-AC_DEFINE(I_SYS_TIME,1)
-AC_DEFINE(I_SYS_WAIT,1)
-AC_DEFINE(I_TERMIOS,1)
-AC_DEFINE(I_TIME,1)
-AC_DEFINE(I_UNISTD,1)
-AC_DEFINE(I_UTIME,1)
-AC_DEFINE(MAILFILE, "/var/mail/%L")
-AC_DEFINE(MAILPOSTER, "/usr/lib/trn4/Rnmail -h %h")
+
+define([TRN_POLICY],[
+	$1=$2
+	AC_SUBST($1)
+])
+
+define([TRN_SYMBOL],[
+	AC_DEFINE($1, $2)
+])
+
+define([TRN_NUMBER],[
+	AC_DEFINE($1, $2)
+	$1=$2
+	AC_SUBST($1)
+])
+
+define([TRN_STRING],[
+	AC_DEFINE($1, $2)
+	$1="$2"
+	AC_SUBST($1)
+])
+
+dnl strings that are used in other definitions
+TRN_STRING(PRIVBIN, "/usr/lib/trn4")
+TRN_STRING(PRIVLIB, "/usr/share/trn4")
+
+TRN_STRING(ispell_prg, "/usr/bin/ispell")
+TRN_STRING(ispell_options, "")
+TRN_STRING(useinews, "/usr/lib/trn4/inews")
+TRN_STRING(ACTIVE, "remote")
+TRN_STRING(ACTIVE_TIMES, "remote")
+TRN_NUMBER(BERKNAMES, 1)
+TRN_STRING(CALL_INEWS, ["/usr/lib/trn4/inews -h <%h"])
+TRN_STRING(DEFEDITOR, "/usr/bin/editor")
+TRN_STRING(Direntry_t, struct dirent)
+TRN_STRING(EXTRAINEWS, "/usr/bin/inews")
+TRN_STRING(GROUPDESC, "")
+TRN_NUMBER(HASATTRIBUTE,1)
+TRN_NUMBER(HAVE_LOCAL_SPOOL,1)
+TRN_NUMBER(HAVE_TERMLIB,1)
+TRN_NUMBER(HOSTBITS, 2)
+TRN_STRING(INSTALLPREFIX, "/usr")
+TRN_NUMBER(INTERNET, 1)
+TRN_NUMBER(I_DIRENT,1)
+TRN_NUMBER(I_STDLIB,1)
+TRN_NUMBER(I_STRING,1)
+TRN_NUMBER(I_SYS_DIR,1)
+TRN_SYMBOL(I_SYS_IOCTL,/**/)
+TRN_NUMBER(I_SYS_TIME,1)
+TRN_NUMBER(I_SYS_WAIT,1)
+TRN_NUMBER(I_TERMIOS,1)
+TRN_NUMBER(I_TIME,1)
+TRN_NUMBER(I_UNISTD,1)
+TRN_NUMBER(I_UTIME,1)
+TRN_STRING(MAILFILE, "/var/mail/%L")
+TRN_STRING(MAILPOSTER, ["/usr/lib/trn4/Rnmail -h %h"])
 AC_DEFINE(MBOXCHAR, 'F')
-AC_DEFINE(MIMECAP, "%./.mimecap:~/.mailcap:/etc/mailcap")
-AC_DEFINE(NEWSLIB, "/var/lib/news")
-AC_DEFINE(NEWSPOSTER, "/usr/lib/trn4/Pnews -h %h")
-AC_DEFINE(NEWSSPOOL, "none")
-AC_DEFINE(NEWS_ADMIN, "news")
-AC_DEFINE(NORMSIG,1)
-AC_DEFINE(ORGNAME, "/etc/news/organization")
-AC_DEFINE(OVERVIEW_DIR,"remote")
-AC_DEFINE(OVERVIEW_FMT,"none")
-AC_DEFINE(PASSNAMES, 1)
-AC_DEFINE(PHOSTCMD, "/usr/bin/hostname")
-AC_DEFINE(PHOSTNAME, "/etc/mailname")
-AC_DEFINE(PREFSHELL, "/bin/sh")
-AC_DEFINE(PRIVLIB, "/usr/share/trn4")
-AC_DEFINE(ROOTID, 0)
-AC_DEFINE(SCAN,/**/)
-AC_DEFINE(SCORE,/**/)
-AC_DEFINE(SELECT_INIT, TRUE)
-AC_DEFINE(SERVER_NAME, "/etc/news/server")
-AC_DEFINE(SUBSCRIPTIONS, "")
-AC_DEFINE(SUPPORT_NNTP,1)
-AC_DEFINE(SUPPORT_XTHREAD,1)
-AC_DEFINE(Signal_t, void)
-AC_DEFINE(THREAD_DIR,"remote")
-AC_DEFINE(THREAD_INIT, FALSE)
-AC_DEFINE(USE_GENAUTH,1)
+TRN_STRING(MIMECAP, ["%./.mimecap:~/.mailcap:/etc/mailcap"])
+TRN_STRING(NEWSLIB, ["/var/lib/news"])
+TRN_STRING(NEWSPOSTER, ["/usr/lib/trn4/Pnews -h %h"])
+TRN_STRING(NEWSSPOOL, "none")
+TRN_STRING(NEWS_ADMIN, "news")
+TRN_NUMBER(NORMSIG,1)
+TRN_STRING(ORGNAME, "/etc/news/organization")
+TRN_STRING(THREAD_DIR,"remote")
+TRN_STRING(OVERVIEW_DIR,"remote")
+TRN_STRING(OVERVIEW_FMT,"none")
+TRN_NUMBER(PASSNAMES, 1)
+TRN_STRING(PHOSTCMD, "/usr/bin/hostname")
+TRN_STRING(PHOSTNAME, "/etc/mailname")
+TRN_STRING(PREFSHELL, "/bin/sh")
+TRN_NUMBER(ROOTID, 0)
+TRN_SYMBOL(SCAN,/**/)
+TRN_SYMBOL(SCORE,/**/)
+TRN_NUMBER(SELECT_INIT, TRUE)
+TRN_STRING(SERVER_NAME, "/etc/news/server")
+TRN_STRING(SUBSCRIPTIONS, "")
+TRN_NUMBER(SUPPORT_NNTP,1)
+TRN_NUMBER(SUPPORT_XTHREAD,1)
+TRN_STRING(Signal_t, void)
+TRN_STRING(THREAD_DIR,"remote")
+TRN_NUMBER(THREAD_INIT, FALSE)
+TRN_NUMBER(USE_GENAUTH,1)
+
+dnl random define/undef symbols
+TRN_POLICY(d_inews, 'define')
+TRN_POLICY(d_ignoreorg, 'undef')
+TRN_POLICY(d_internet, 'define')
+TRN_POLICY(d_newsadm, 'define')
+TRN_POLICY(d_nntp, 'define')
+TRN_POLICY(d_xdata, '')
+TRN_POLICY(d_usemt, '')
+TRN_POLICY(citydist, 'none')
+TRN_POLICY(cntrydist, 'none')
+TRN_POLICY(contdist, 'none')
+TRN_POLICY(locdist, 'none')
+TRN_POLICY(orgdist, 'none')
+TRN_POLICY(statedist, 'none')
+TRN_POLICY(multistatedist, 'none')
+TRN_POLICY(d_passnames, 'define')
+TRN_POLICY(d_berknames, 'define')
+TRN_POLICY(d_usgnames, 'undef')
+TRN_POLICY(d_acttimes, 'define')
+TRN_POLICY(PORTABLE, 'undef')
+TRN_POLICY(d_useov, '')
+
+TRN_POLICY(cf_by, $USER)
+TRN_POLICY(cf_time, `date`)
 
 dnl optionally comment-out chunks of makefile:
-
-DEFEDITOR="/usr/bin/editor"
-AC_SUBST(DEFEDITOR)
 
 MAKE_INEWS=""
 AC_SUBST(MAKE_INEWS)
@@ -168,13 +219,7 @@ AC_SUBST(TK_LDFLAGS)
 NNTP_FLAGS=
 AC_SUBST(NNTP_FLAGS)
 
-RN_BIN=/usr/lib/trn4
-AC_SUBST(RN_BIN)
-
-RN_LIB=/usr/share/trn4
-AC_SUBST(RN_LIB)
-
-INEWS_BIN=/usr/lib/trn4
+INEWS_BIN=$PRIVBIN
 AC_SUBST(INEWS_BIN)
 
 NDIR_LIB=
@@ -186,7 +231,7 @@ AC_SUBST(JOBS_LIB)
 TERM_LIB=
 AC_SUBST(TERM_LIB)
 
-FILEXP_PATH=/usr/share/trn4/filexp
+FILEXP_PATH=$PRIVLIB/filexp
 AC_SUBST(FILEXP_PATH)
 
 LDFLAGS="-Wl,-z,relro"
@@ -204,17 +249,11 @@ AC_SUBST(MANSECT)
 NAMETYPE=bsd
 AC_SUBST(NAMETYPE)
 
-ORGNAME=/etc/news/organization
-AC_SUBST(ORGNAME)
-
 PAGER=/usr/bin/pager
 AC_SUBST(PAGER)
 
 PGPCOMMAND=pgp
 AC_SUBST(PGPCOMMAND)
-
-PORTABLE=undef
-AC_SUBST(PORTABLE)
 
 RNMAILER=/usr/sbin/sendmail
 AC_SUBST(RNMAILER)
@@ -222,7 +261,7 @@ AC_SUBST(RNMAILER)
 EXTRA_CLEANUP=
 AC_SUBST(EXTRA_CLEANUP)
 
-AC_CONFIG_FILES([Makefile Rnmail Speller access.def:access_def.in norm.saver:norm_saver.in mbox.saver:mbox_saver.in makedir filexp ],[
+AC_CONFIG_FILES([Makefile Rnmail Speller access.def:access_def.in norm.saver:norm_saver.in mbox.saver:mbox_saver.in makedir filexp Policy.sh:Policy_sh.in ],[
 if ! grep "WARNING" Makefile > /dev/null
 then
 	grep -F -v ".SH" dependencies >> Makefile

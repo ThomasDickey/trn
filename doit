@@ -56,6 +56,7 @@ do_filter filter_shl Rnmail
 do_filter filter_shl access.def
 do_filter filter_shl Speller
 do_filter filter_shl norm.saver
+do_filter filter_shl mbox.saver
 
 pwd
 make -n -k

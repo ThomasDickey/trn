@@ -9909,7 +9909,7 @@ RNMAILER=/usr/sbin/sendmail
 
 EXTRA_CLEANUP=
 
-ac_config_files="$ac_config_files Makefile Rnmail Speller access.def:access_def.in norm.saver:norm_saver.in"
+ac_config_files="$ac_config_files Makefile Rnmail Speller access.def:access_def.in norm.saver:norm_saver.in mbox.saver:mbox_saver.in"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -10227,8 +10227,9 @@ do
   "Speller" ) CONFIG_FILES="$CONFIG_FILES Speller" ;;
   "access.def" ) CONFIG_FILES="$CONFIG_FILES access.def:access_def.in" ;;
   "norm.saver" ) CONFIG_FILES="$CONFIG_FILES norm.saver:norm_saver.in" ;;
+  "mbox.saver" ) CONFIG_FILES="$CONFIG_FILES mbox.saver:mbox_saver.in" ;;
   "config.h" ) CONFIG_HEADERS="$CONFIG_HEADERS config.h" ;;
-  *) { { echo "$as_me:10231: error: invalid argument: $ac_config_target" >&5
+  *) { { echo "$as_me:10232: error: invalid argument: $ac_config_target" >&5
 echo "$as_me: error: invalid argument: $ac_config_target" >&2;}
    { (exit 1); exit 1; }; };;
   esac
@@ -10520,7 +10521,7 @@ done; }
   esac
 
   if test x"$ac_file" != x-; then
-    { echo "$as_me:10523: creating $ac_file" >&5
+    { echo "$as_me:10524: creating $ac_file" >&5
 echo "$as_me: creating $ac_file" >&6;}
     rm -f "$ac_file"
   fi
@@ -10538,7 +10539,7 @@ echo "$as_me: creating $ac_file" >&6;}
       -) echo "$tmp"/stdin ;;
       [\\/$]*)
          # Absolute (can't be DOS-style, as IFS=:)
-         test -f "$f" || { { echo "$as_me:10541: error: cannot find input file: $f" >&5
+         test -f "$f" || { { echo "$as_me:10542: error: cannot find input file: $f" >&5
 echo "$as_me: error: cannot find input file: $f" >&2;}
    { (exit 1); exit 1; }; }
          echo "$f";;
@@ -10551,7 +10552,7 @@ echo "$as_me: error: cannot find input file: $f" >&2;}
            echo "$srcdir/$f"
          else
            # /dev/null tree
-           { { echo "$as_me:10554: error: cannot find input file: $f" >&5
+           { { echo "$as_me:10555: error: cannot find input file: $f" >&5
 echo "$as_me: error: cannot find input file: $f" >&2;}
    { (exit 1); exit 1; }; }
          fi;;
@@ -10567,7 +10568,7 @@ cat >>"$CONFIG_STATUS" <<\EOF
       if test -n "$ac_seen"; then
         ac_used=`grep '@datarootdir@' "$ac_item"`
         if test -z "$ac_used"; then
-          { echo "$as_me:10570: WARNING: datarootdir was used implicitly but not set:
+          { echo "$as_me:10571: WARNING: datarootdir was used implicitly but not set:
 $ac_seen" >&5
 echo "$as_me: WARNING: datarootdir was used implicitly but not set:
 $ac_seen" >&2;}
@@ -10576,7 +10577,7 @@ $ac_seen" >&2;}
       fi
       ac_seen=`grep '${datarootdir}' "$ac_item"`
       if test -n "$ac_seen"; then
-        { echo "$as_me:10579: WARNING: datarootdir was used explicitly but not set:
+        { echo "$as_me:10580: WARNING: datarootdir was used explicitly but not set:
 $ac_seen" >&5
 echo "$as_me: WARNING: datarootdir was used explicitly but not set:
 $ac_seen" >&2;}
@@ -10621,7 +10622,7 @@ cat >>"$CONFIG_STATUS" <<\EOF
             ac_init=`$EGREP '[ 	]*'$ac_name'[ 	]*=' "$ac_file"`
             if test -z "$ac_init"; then
               ac_seen=`echo "$ac_seen" |sed -e 's,^,'"$ac_file"':,'`
-              { echo "$as_me:10624: WARNING: Variable $ac_name is used but was not set:
+              { echo "$as_me:10625: WARNING: Variable $ac_name is used but was not set:
 $ac_seen" >&5
 echo "$as_me: WARNING: Variable $ac_name is used but was not set:
 $ac_seen" >&2;}
@@ -10632,7 +10633,7 @@ $ac_seen" >&2;}
     $EGREP -n '@[A-Z_][A-Z_0-9]+@' "$ac_file" >>"$tmp"/out
     if test -s "$tmp"/out; then
       ac_seen=`sed -e 's,^,'"$ac_file"':,' < "$tmp"/out`
-      { echo "$as_me:10635: WARNING: Some variables may not be substituted:
+      { echo "$as_me:10636: WARNING: Some variables may not be substituted:
 $ac_seen" >&5
 echo "$as_me: WARNING: Some variables may not be substituted:
 $ac_seen" >&2;}
@@ -10669,6 +10670,12 @@ then
 fi
  ;;
     norm.saver )
+if ! grep "WARNING" Makefile > /dev/null
+then
+	grep -F -v ".SH" dependencies >> Makefile
+fi
+ ;;
+    mbox.saver )
 if ! grep "WARNING" Makefile > /dev/null
 then
 	grep -F -v ".SH" dependencies >> Makefile
@@ -10714,7 +10721,7 @@ for ac_file in : $CONFIG_HEADERS; do test "x$ac_file" = x: && continue
   * )   ac_file_in=$ac_file.in ;;
   esac
 
-  test x"$ac_file" != x- && { echo "$as_me:10717: creating $ac_file" >&5
+  test x"$ac_file" != x- && { echo "$as_me:10724: creating $ac_file" >&5
 echo "$as_me: creating $ac_file" >&6;}
 
   # First look for the input files in the build tree, otherwise in the
@@ -10725,7 +10732,7 @@ echo "$as_me: creating $ac_file" >&6;}
       -) echo "$tmp"/stdin ;;
       [\\/$]*)
          # Absolute (can't be DOS-style, as IFS=:)
-         test -f "$f" || { { echo "$as_me:10728: error: cannot find input file: $f" >&5
+         test -f "$f" || { { echo "$as_me:10735: error: cannot find input file: $f" >&5
 echo "$as_me: error: cannot find input file: $f" >&2;}
    { (exit 1); exit 1; }; }
          echo $f;;
@@ -10738,7 +10745,7 @@ echo "$as_me: error: cannot find input file: $f" >&2;}
            echo "$srcdir/$f"
          else
            # /dev/null tree
-           { { echo "$as_me:10741: error: cannot find input file: $f" >&5
+           { { echo "$as_me:10748: error: cannot find input file: $f" >&5
 echo "$as_me: error: cannot find input file: $f" >&2;}
    { (exit 1); exit 1; }; }
          fi;;
@@ -10857,7 +10864,7 @@ cat >>"$CONFIG_STATUS" <<\EOF
   rm -f "$tmp"/in
   if test x"$ac_file" != x-; then
     if cmp -s "$ac_file" "$tmp/config.h" 2>/dev/null; then
-      { echo "$as_me:10860: $ac_file is unchanged" >&5
+      { echo "$as_me:10867: $ac_file is unchanged" >&5
 echo "$as_me: $ac_file is unchanged" >&6;}
     else
       ac_dir=`$as_expr X"$ac_file" : 'X\(.*[^/]\)//*[^/][^/]*/*$' \| \

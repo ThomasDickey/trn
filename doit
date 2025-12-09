@@ -40,7 +40,7 @@ s/[[:space:]]*$//
 EOF
 
 cat >$mytemp/shl_script <<"EOF"
-s/\$(grep|cp|rm|sleep|test|who|sed|echo|cat)/\1/g
+s/\$(awk|basename|cat|cp|diff|echo|ed|grep|mv|rm|sed|sleep|spell|test|who)/\1/g
 s/[[:space:]]*$//
 /^$/d
 /^#/d
@@ -54,6 +54,7 @@ do_filter filter_hdr config.h
 do_filter filter_mak Makefile
 do_filter filter_shl Rnmail
 do_filter filter_shl access.def
+do_filter filter_shl Speller
 
 pwd
 make -n -k

@@ -55,6 +55,7 @@ do_filter filter_mak Makefile
 do_filter filter_shl Rnmail
 do_filter filter_shl access.def
 do_filter filter_shl Speller
+do_filter filter_shl norm.saver
 
 pwd
 make -n -k

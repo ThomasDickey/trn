@@ -3,6 +3,19 @@
 /* This software is copyrighted as detailed in the LICENSE file. */
 
 
+/*
+ * ncurses (and NetBSD) both provide a termcap header which can be used for
+ * old applications such as this, since it prototypes tputs and tgoto.  That
+ * is (a little) more preferred to just enabling the "MSDOS" prototypes which
+ * were at the end of the file.
+ */
+#ifdef HAVE_TERMCAP_H
+#include <termcap.h>
+#else
+int tputs _((char*,int,int(*) _((char_int))));
+char* tgoto _((char*,int,int));
+#endif
+
 EXT char ERASECH;		/* rubout character */
 EXT char KILLCH;		/* line delete character */
 EXT char circlebuf[PUSHSIZE];
@@ -253,7 +266,3 @@ void draw_mousebar _((int,bool_int));
 bool check_mousebar _((int,int,int,int,int,int));
 void add_tc_string _((char*,char*));
 char* tc_color_capability _((char*));
-#ifdef MSDOS
-int tputs _((char*,int,int(*) _((char_int))));
-char* tgoto _((char*,int,int));
-#endif

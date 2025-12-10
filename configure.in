@@ -98,8 +98,8 @@ define([TRN_NUMBER],[
 ])
 
 define([TRN_STRING],[
-	AC_DEFINE($1, $2)
-	$1="$2"
+	AC_DEFINE($1, "$2")
+	$1=\""$2"\"
 	AC_SUBST($1)
 ])
 
@@ -115,7 +115,7 @@ TRN_STRING(ACTIVE_TIMES, [remote])
 TRN_NUMBER(BERKNAMES, 1)
 TRN_STRING(CALL_INEWS, [/usr/lib/trn4/inews -h <%h])
 TRN_STRING(DEFEDITOR, [/usr/bin/editor])
-TRN_STRING(Direntry_t, struct dirent)
+TRN_NUMBER(Direntry_t, struct dirent)
 TRN_STRING(EXTRAINEWS, [/usr/bin/inews])
 TRN_STRING(GROUPDESC, [])
 TRN_NUMBER(HASATTRIBUTE,1)
@@ -160,7 +160,7 @@ TRN_STRING(SERVER_NAME, [/etc/news/server])
 TRN_STRING(SUBSCRIPTIONS, [])
 TRN_NUMBER(SUPPORT_NNTP,1)
 TRN_NUMBER(SUPPORT_XTHREAD,1)
-TRN_STRING(Signal_t, void)
+TRN_NUMBER(Signal_t, void)
 TRN_STRING(THREAD_DIR,[remote])
 TRN_NUMBER(THREAD_INIT, FALSE)
 TRN_NUMBER(USE_GENAUTH,1)

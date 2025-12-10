@@ -9638,46 +9638,46 @@ fi
 ###############################################################################
 
 	cat >>confdefs.h <<\EOF
-#define PRIVBIN "/usr/lib/trn4"
+#define PRIVBIN /usr/lib/trn4
 EOF
 
-	PRIVBIN=""/usr/lib/trn4""
+	PRIVBIN="/usr/lib/trn4"
 
 	cat >>confdefs.h <<\EOF
-#define PRIVLIB "/usr/share/trn4"
+#define PRIVLIB /usr/share/trn4
 EOF
 
-	PRIVLIB=""/usr/share/trn4""
+	PRIVLIB="/usr/share/trn4"
 
 	cat >>confdefs.h <<\EOF
-#define ispell_prg "/usr/bin/ispell"
+#define ispell_prg /usr/bin/ispell
 EOF
 
-	ispell_prg=""/usr/bin/ispell""
+	ispell_prg="/usr/bin/ispell"
 
 	cat >>confdefs.h <<\EOF
-#define ispell_options ""
+#define ispell_options
 EOF
 
-	ispell_options=""""
+	ispell_options=""
 
 	cat >>confdefs.h <<\EOF
-#define useinews "/usr/lib/trn4/inews"
+#define useinews /usr/lib/trn4/inews
 EOF
 
-	useinews=""/usr/lib/trn4/inews""
+	useinews="/usr/lib/trn4/inews"
 
 	cat >>confdefs.h <<\EOF
-#define ACTIVE "remote"
+#define ACTIVE remote
 EOF
 
-	ACTIVE=""remote""
+	ACTIVE="remote"
 
 	cat >>confdefs.h <<\EOF
-#define ACTIVE_TIMES "remote"
+#define ACTIVE_TIMES remote
 EOF
 
-	ACTIVE_TIMES=""remote""
+	ACTIVE_TIMES="remote"
 
 	cat >>confdefs.h <<\EOF
 #define BERKNAMES 1
@@ -9686,16 +9686,16 @@ EOF
 	BERKNAMES=1
 
 	cat >>confdefs.h <<\EOF
-#define CALL_INEWS "/usr/lib/trn4/inews -h <%h"
+#define CALL_INEWS /usr/lib/trn4/inews -h <%h
 EOF
 
-	CALL_INEWS=""/usr/lib/trn4/inews -h <%h""
+	CALL_INEWS="/usr/lib/trn4/inews -h <%h"
 
 	cat >>confdefs.h <<\EOF
-#define DEFEDITOR "/usr/bin/editor"
+#define DEFEDITOR /usr/bin/editor
 EOF
 
-	DEFEDITOR=""/usr/bin/editor""
+	DEFEDITOR="/usr/bin/editor"
 
 	cat >>confdefs.h <<\EOF
 #define Direntry_t struct dirent
@@ -9704,16 +9704,16 @@ EOF
 	Direntry_t="struct dirent"
 
 	cat >>confdefs.h <<\EOF
-#define EXTRAINEWS "/usr/bin/inews"
+#define EXTRAINEWS /usr/bin/inews
 EOF
 
-	EXTRAINEWS=""/usr/bin/inews""
+	EXTRAINEWS="/usr/bin/inews"
 
 	cat >>confdefs.h <<\EOF
-#define GROUPDESC ""
+#define GROUPDESC
 EOF
 
-	GROUPDESC=""""
+	GROUPDESC=""
 
 	cat >>confdefs.h <<\EOF
 #define HASATTRIBUTE 1
@@ -9740,10 +9740,10 @@ EOF
 	HOSTBITS=2
 
 	cat >>confdefs.h <<\EOF
-#define INSTALLPREFIX "/usr"
+#define INSTALLPREFIX /usr
 EOF
 
-	INSTALLPREFIX=""/usr""
+	INSTALLPREFIX="/usr"
 
 	cat >>confdefs.h <<\EOF
 #define INTERNET 1
@@ -9816,50 +9816,50 @@ EOF
 	I_UTIME=1
 
 	cat >>confdefs.h <<\EOF
-#define MAILFILE "/var/mail/%L"
+#define MAILFILE /var/mail/%L
 EOF
 
-	MAILFILE=""/var/mail/%L""
+	MAILFILE="/var/mail/%L"
 
 	cat >>confdefs.h <<\EOF
-#define MAILPOSTER "/usr/lib/trn4/Rnmail -h %h"
+#define MAILPOSTER /usr/lib/trn4/Rnmail -h %h
 EOF
 
-	MAILPOSTER=""/usr/lib/trn4/Rnmail -h %h""
+	MAILPOSTER="/usr/lib/trn4/Rnmail -h %h"
 
 cat >>confdefs.h <<\EOF
 #define MBOXCHAR 'F'
 EOF
 
 	cat >>confdefs.h <<\EOF
-#define MIMECAP "%./.mimecap:~/.mailcap:/etc/mailcap"
+#define MIMECAP %./.mimecap:~/.mailcap:/etc/mailcap
 EOF
 
-	MIMECAP=""%./.mimecap:~/.mailcap:/etc/mailcap""
+	MIMECAP="%./.mimecap:~/.mailcap:/etc/mailcap"
 
 	cat >>confdefs.h <<\EOF
-#define NEWSLIB "/var/lib/news"
+#define NEWSLIB /var/lib/news
 EOF
 
-	NEWSLIB=""/var/lib/news""
+	NEWSLIB="/var/lib/news"
 
 	cat >>confdefs.h <<\EOF
-#define NEWSPOSTER "/usr/lib/trn4/Pnews -h %h"
+#define NEWSPOSTER /usr/lib/trn4/Pnews -h %h
 EOF
 
-	NEWSPOSTER=""/usr/lib/trn4/Pnews -h %h""
+	NEWSPOSTER="/usr/lib/trn4/Pnews -h %h"
 
 	cat >>confdefs.h <<\EOF
-#define NEWSSPOOL "none"
+#define NEWSSPOOL none
 EOF
 
-	NEWSSPOOL=""none""
+	NEWSSPOOL="none"
 
 	cat >>confdefs.h <<\EOF
-#define NEWS_ADMIN "news"
+#define NEWS_ADMIN news
 EOF
 
-	NEWS_ADMIN=""news""
+	NEWS_ADMIN="news"
 
 	cat >>confdefs.h <<\EOF
 #define NORMSIG 1
@@ -9868,28 +9868,28 @@ EOF
 	NORMSIG=1
 
 	cat >>confdefs.h <<\EOF
-#define ORGNAME "/etc/news/organization"
+#define ORGNAME /etc/news/organization
 EOF
 
-	ORGNAME=""/etc/news/organization""
+	ORGNAME="/etc/news/organization"
 
 	cat >>confdefs.h <<\EOF
-#define THREAD_DIR "remote"
+#define THREAD_DIR remote
 EOF
 
-	THREAD_DIR=""remote""
+	THREAD_DIR="remote"
 
 	cat >>confdefs.h <<\EOF
-#define OVERVIEW_DIR "remote"
+#define OVERVIEW_DIR remote
 EOF
 
-	OVERVIEW_DIR=""remote""
+	OVERVIEW_DIR="remote"
 
 	cat >>confdefs.h <<\EOF
-#define OVERVIEW_FMT "none"
+#define OVERVIEW_FMT none
 EOF
 
-	OVERVIEW_FMT=""none""
+	OVERVIEW_FMT="none"
 
 	cat >>confdefs.h <<\EOF
 #define PASSNAMES 1
@@ -9898,22 +9898,22 @@ EOF
 	PASSNAMES=1
 
 	cat >>confdefs.h <<\EOF
-#define PHOSTCMD "/usr/bin/hostname"
+#define PHOSTCMD /usr/bin/hostname
 EOF
 
-	PHOSTCMD=""/usr/bin/hostname""
+	PHOSTCMD="/usr/bin/hostname"
 
 	cat >>confdefs.h <<\EOF
-#define PHOSTNAME "/etc/mailname"
+#define PHOSTNAME /etc/mailname
 EOF
 
-	PHOSTNAME=""/etc/mailname""
+	PHOSTNAME="/etc/mailname"
 
 	cat >>confdefs.h <<\EOF
-#define PREFSHELL "/bin/sh"
+#define PREFSHELL /bin/sh
 EOF
 
-	PREFSHELL=""/bin/sh""
+	PREFSHELL="/bin/sh"
 
 	cat >>confdefs.h <<\EOF
 #define ROOTID 0
@@ -9936,16 +9936,16 @@ EOF
 	SELECT_INIT=TRUE
 
 	cat >>confdefs.h <<\EOF
-#define SERVER_NAME "/etc/news/server"
+#define SERVER_NAME /etc/news/server
 EOF
 
-	SERVER_NAME=""/etc/news/server""
+	SERVER_NAME="/etc/news/server"
 
 	cat >>confdefs.h <<\EOF
-#define SUBSCRIPTIONS ""
+#define SUBSCRIPTIONS
 EOF
 
-	SUBSCRIPTIONS=""""
+	SUBSCRIPTIONS=""
 
 	cat >>confdefs.h <<\EOF
 #define SUPPORT_NNTP 1
@@ -9966,10 +9966,10 @@ EOF
 	Signal_t="void"
 
 	cat >>confdefs.h <<\EOF
-#define THREAD_DIR "remote"
+#define THREAD_DIR remote
 EOF
 
-	THREAD_DIR=""remote""
+	THREAD_DIR="remote"
 
 	cat >>confdefs.h <<\EOF
 #define THREAD_INIT FALSE

@@ -261,7 +261,7 @@ AC_SUBST(RNMAILER)
 EXTRA_CLEANUP=
 AC_SUBST(EXTRA_CLEANUP)
 
-AC_CONFIG_FILES([Makefile Rnmail Speller access.def:access_def.in norm.saver:norm_saver.in mbox.saver:mbox_saver.in makedir filexp Policy.sh:Policy_sh.in ],[
+AC_CONFIG_FILES([Makefile Rnmail Speller access.def:access_def.in norm.saver:norm_saver.in mbox.saver:mbox_saver.in makedir filexp Policy.sh:Policy_sh.in myinstall ],[
 if ! grep "WARNING" Makefile > /dev/null
 then
 	grep -F -v ".SH" dependencies >> Makefile

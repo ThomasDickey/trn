@@ -23,7 +23,7 @@ CF_SIGWINCH
 AC_CHECK_DECL(exit)
 AC_CHECK_HEADERS( \
 sys/ptem.h \
-term.h \
+termcap.h \
 termios.h \
 )
 

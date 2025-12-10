@@ -5315,7 +5315,7 @@ echo "${ECHO_T}$ac_cv_have_decl_exit" >&6
 
 for ac_header in \
 sys/ptem.h \
-term.h \
+termcap.h \
 termios.h \
 
 do

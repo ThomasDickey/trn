@@ -237,6 +237,11 @@
  */
 #undef MAILFILE
 
+/* TERMCAP_H:
+ *	Defined if the system provides a "termcap.h" header.
+ */
+#undef HAVE_TERMCAP_H
+
 /* MBOXCHAR:
  *	This symbol contains a character which will match the beginning
  *	of a mailbox file.

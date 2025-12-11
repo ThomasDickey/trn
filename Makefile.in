@@ -32,10 +32,10 @@ exe = @EXEEXT@
 o = @OBJEXT@
 @MAKE_MSDOS@o = obj
 
-rnbin = @PRIVBIN@
-rnlib = @PRIVLIB@
-@MAKE_INEWS@inewsbin = @INEWS_BIN@
-mansrc = @MANDIR@
+rnbin = $(DESTDIR)@PRIVBIN@
+rnlib = $(DESTDIR)@PRIVLIB@
+@MAKE_INEWS@inewsbin = $(DESTDIR)@INEWS_BIN@
+mansrc = $(DESTDIR)@MANDIR@
 manext = @MANSECT@
 @MAKE_NNTP@NNTPFLAGS = @NNTP_FLAGS@
 @MAKE_NDIR@ndirc = ndir.c
@@ -255,7 +255,7 @@ realclean:
 	rm -rf UU
 	rm -f *.$(o) core $(addedbymake) Makefile
 
-spotless:
+distclean spotless:
 	rm -rf UU .config
 	rm -f *.$(o) core $(addedbymake) Makefile config.sh Policy.sh
 

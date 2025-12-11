@@ -1,8 +1,8 @@
 dnl
-AC_PREREQ(2.52.20210509)
+AC_PREREQ([2.52.20210509])
 AC_INIT
 AC_CONFIG_SRCDIR([trn.c])
-AC_CONFIG_HEADER(config.h)
+AC_CONFIG_HEADERS([config.h])
 CF_CHECK_CACHE
 
 ###	checks for alternative programs
@@ -165,6 +165,9 @@ TRN_STRING(THREAD_DIR,[remote])
 TRN_NUMBER(THREAD_INIT, FALSE)
 TRN_NUMBER(USE_GENAUTH,1)
 
+dnl not really numbers, but not quoted, either
+TRN_NUMBER(USR_INCLUDE,/usr/include)
+
 dnl random define/undef symbols
 TRN_POLICY(d_inews, 'define')
 TRN_POLICY(d_ignoreorg, 'undef')
@@ -261,10 +264,15 @@ AC_SUBST(RNMAILER)
 EXTRA_CLEANUP=
 AC_SUBST(EXTRA_CLEANUP)
 
-AC_CONFIG_FILES([Makefile Rnmail Speller access.def:access_def.in norm.saver:norm_saver.in mbox.saver:mbox_saver.in makedir filexp Policy.sh:Policy_sh.in myinstall ],[
-if ! grep "WARNING" Makefile > /dev/null
-then
+AC_CONFIG_FILES([Makefile Rnmail Speller access.def:access_def.in norm.saver:norm_saver.in mbox.saver:mbox_saver.in makedir filexp Policy.sh:Policy_sh.in myinstall makedepend ])
+AC_CONFIG_COMMANDS(dependencies,[
 	grep -F -v ".SH" dependencies >> Makefile
-fi
+])
+AC_CONFIG_COMMANDS(permissions,[
+	chmod -v +x Speller
+	chmod -v +x filexp
+	chmod -v +x makedir
+	chmod -v +x makedepend
+	chmod -v +x myinstall
 ])
 AC_OUTPUT

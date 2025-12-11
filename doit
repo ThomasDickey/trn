@@ -40,7 +40,7 @@ s/[[:space:]]*$//
 EOF
 
 cat >$mytemp/shl_script <<"EOF"
-s/\$(awk|basename|cat|cp|diff|echo|ed|expr|grep|mv|rm|sed|sleep|spell|test|who)/\1/g
+s/\$(awk|basename|cat|cp|diff|echo|ed|expr|grep|mv|rm|sed|sleep|sort|spell|test|uniq|who)/\1/g
 s/[[:space:]]*$//
 /^$/d
 /^#/d
@@ -57,6 +57,7 @@ do_filter filter_shl access.def
 do_filter filter_shl Speller
 do_filter filter_shl norm.saver
 do_filter filter_shl mbox.saver
+do_filter filter_shl makedepend
 do_filter filter_shl makedir
 do_filter filter_shl filexp
 do_filter filter_shl Policy.sh

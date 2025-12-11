@@ -25,7 +25,7 @@ case X$2 in
 esac
 
 : return reasonable status if nothing to be created
-if $test -d "$1" ; then
+if test -d "$1" ; then
     exit 0
 fi
 

@@ -115,7 +115,6 @@ TRN_STRING(ACTIVE_TIMES, [remote])
 TRN_NUMBER(BERKNAMES, 1)
 TRN_STRING(CALL_INEWS, [/usr/lib/trn4/inews -h <%h])
 TRN_STRING(DEFEDITOR, [/usr/bin/editor])
-TRN_NUMBER(Direntry_t, struct dirent)
 TRN_STRING(EXTRAINEWS, [/usr/bin/inews])
 TRN_STRING(GROUPDESC, [])
 TRN_NUMBER(HASATTRIBUTE,1)
@@ -166,6 +165,8 @@ TRN_NUMBER(THREAD_INIT, FALSE)
 TRN_NUMBER(USE_GENAUTH,1)
 
 dnl not really numbers, but not quoted, either
+TRN_NUMBER(Direntry_t, [struct dirent])
+TRN_NUMBER(PATCHLEVEL,`sed -e 's/.*" \(.*\)\"/\1/' $srcdir/patchlevel.h`)
 TRN_NUMBER(USR_INCLUDE,/usr/include)
 
 dnl random define/undef symbols
@@ -264,11 +265,12 @@ AC_SUBST(RNMAILER)
 EXTRA_CLEANUP=
 AC_SUBST(EXTRA_CLEANUP)
 
-AC_CONFIG_FILES([Makefile Rnmail Speller access.def:access_def.in norm.saver:norm_saver.in mbox.saver:mbox_saver.in makedir filexp Policy.sh:Policy_sh.in myinstall makedepend ])
+AC_CONFIG_FILES([Makefile Pnews Pnews.header:Pnews_header.in Rnmail Speller access.def:access_def.in norm.saver:norm_saver.in mbox.saver:mbox_saver.in makedir filexp Policy.sh:Policy_sh.in myinstall makedepend newsnews ])
 AC_CONFIG_COMMANDS(dependencies,[
 	grep -F -v ".SH" dependencies >> Makefile
 ])
 AC_CONFIG_COMMANDS(permissions,[
+	chmod -v +x Pnews
 	chmod -v +x Speller
 	chmod -v +x filexp
 	chmod -v +x makedir

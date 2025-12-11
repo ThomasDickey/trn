@@ -232,6 +232,18 @@ install: $(public) $(inewsexe) $(private) $(manpages) myinstall
 	@echo 'contain no interesting changes and/or no one is running the'
 	@echo 'old executables.'
 
+uninstall:
+# won't work with csh
+	export PATH || false # stop the make unless we are compatible
+	- rm -rf `./filexp $(rnbin)`
+	- rm -rf `./filexp $(rnlib)`
+@MAKE_INEWS@	- rm -f `./filexp $(inewsbin)`/inews$(exe)
+	- for page in $(manpages); do\
+	  page=`basename $$page`;\
+	  dest=$(mansrc)/`basename $$page .1`.$(manext);\
+	  rm -f $(dest);\
+	  done
+
 installclean:
 	- (cd `./filexp $(rnbin)` ; for file in $(public) $(private_diff) ; do\
   rm -f $${file}.old;\
